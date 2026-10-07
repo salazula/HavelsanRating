@@ -1,0 +1,371 @@
+[
+ {
+  "group": "G",
+  "players": [
+   {
+    "name": "Abdurrahman Yavuz",
+    "ratingBefore": 1527,
+    "expectedTotal": 30
+   },
+   {
+    "name": "Tevfik Furkan Pekşen",
+    "ratingBefore": 1526,
+    "expectedTotal": 28
+   },
+   {
+    "name": "Tarkan Karabıyık",
+    "ratingBefore": 1522,
+    "expectedTotal": -13
+   },
+   {
+    "name": "Tayfun Kayabaşı",
+    "ratingBefore": 1508,
+    "expectedTotal": 31
+   },
+   {
+    "name": "Oktay Uncu",
+    "ratingBefore": 1506,
+    "expectedTotal": -32
+   },
+   {
+    "name": "Burcu Dinçer",
+    "ratingBefore": 1500,
+    "expectedTotal": -12
+   }
+  ],
+  "matches": [
+   {
+    "a": "Abdurrahman Yavuz",
+    "b": "Tevfik Furkan Pekşen",
+    "setsA": 2,
+    "setsB": 3
+   },
+   {
+    "a": "Abdurrahman Yavuz",
+    "b": "Tarkan Karabıyık",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "Abdurrahman Yavuz",
+    "b": "Tayfun Kayabaşı",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "Abdurrahman Yavuz",
+    "b": "Oktay Uncu",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Abdurrahman Yavuz",
+    "b": "Burcu Dinçer",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Tevfik Furkan Pekşen",
+    "b": "Tarkan Karabıyık",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "Tevfik Furkan Pekşen",
+    "b": "Tayfun Kayabaşı",
+    "setsA": 2,
+    "setsB": 3
+   },
+   {
+    "a": "Tevfik Furkan Pekşen",
+    "b": "Oktay Uncu",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Tevfik Furkan Pekşen",
+    "b": "Burcu Dinçer",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Tarkan Karabıyık",
+    "b": "Tayfun Kayabaşı",
+    "setsA": 0,
+    "setsB": 3
+   },
+   {
+    "a": "Tarkan Karabıyık",
+    "b": "Oktay Uncu",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Tarkan Karabıyık",
+    "b": "Burcu Dinçer",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Oktay Uncu",
+    "b": "Burcu Dinçer",
+    "setsA": 1,
+    "setsB": 3
+   }
+  ]
+ },
+ {
+  "group": "H",
+  "players": [
+   {
+    "name": "İsmail Oğuz",
+    "ratingBefore": 1579,
+    "expectedTotal": -22
+   },
+   {
+    "name": "Mustafa Subaşı",
+    "ratingBefore": 1495,
+    "expectedTotal": 16
+   },
+   {
+    "name": "İbrahim Koca",
+    "ratingBefore": 1492,
+    "expectedTotal": 68
+   },
+   {
+    "name": "Emin Tuğrul",
+    "ratingBefore": 1489,
+    "expectedTotal": 2
+   },
+   {
+    "name": "Şeref Coşkunyürek",
+    "ratingBefore": 1487,
+    "expectedTotal": -4
+   },
+   {
+    "name": "İsmail Canlı",
+    "ratingBefore": 1487,
+    "expectedTotal": -50
+   }
+  ],
+  "matches": [
+   {
+    "a": "İsmail Oğuz",
+    "b": "Mustafa Subaşı",
+    "setsA": 3,
+    "setsB": 2
+   },
+   {
+    "a": "İsmail Oğuz",
+    "b": "İbrahim Koca",
+    "setsA": 1,
+    "setsB": 3
+   },
+   {
+    "a": "İsmail Oğuz",
+    "b": "Emin Tuğrul",
+    "setsA": 1,
+    "setsB": 3
+   },
+   {
+    "a": "İsmail Oğuz",
+    "b": "Şeref Coşkunyürek",
+    "setsA": 3,
+    "setsB": 2
+   },
+   {
+    "a": "İsmail Oğuz",
+    "b": "İsmail Canlı",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Mustafa Subaşı",
+    "b": "İbrahim Koca",
+    "setsA": 1,
+    "setsB": 3
+   },
+   {
+    "a": "Mustafa Subaşı",
+    "b": "Emin Tuğrul",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "Mustafa Subaşı",
+    "b": "Şeref Coşkunyürek",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Mustafa Subaşı",
+    "b": "İsmail Canlı",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "İbrahim Koca",
+    "b": "Emin Tuğrul",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "İbrahim Koca",
+    "b": "Şeref Coşkunyürek",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "İbrahim Koca",
+    "b": "İsmail Canlı",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "Emin Tuğrul",
+    "b": "Şeref Coşkunyürek",
+    "setsA": 0,
+    "setsB": 3
+   },
+   {
+    "a": "Emin Tuğrul",
+    "b": "İsmail Canlı",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Şeref Coşkunyürek",
+    "b": "İsmail Canlı",
+    "setsA": 3,
+    "setsB": 0
+   }
+  ]
+ },
+ {
+  "group": "I",
+  "players": [
+   {
+    "name": "Mehmet Çağlar Çağlayan",
+    "ratingBefore": 1486,
+    "expectedTotal": -18
+   },
+   {
+    "name": "Oğuz Cigilli",
+    "ratingBefore": 1472,
+    "expectedTotal": -57
+   },
+   {
+    "name": "Kubilay Akaydın",
+    "ratingBefore": 1469,
+    "expectedTotal": 33
+   },
+   {
+    "name": "Tuncay Gök",
+    "ratingBefore": 1466,
+    "expectedTotal": -31
+   },
+   {
+    "name": "Abdülbasit Yavuz",
+    "ratingBefore": 1458,
+    "expectedTotal": 12
+   },
+   {
+    "name": "Metehan Kömbeci",
+    "ratingBefore": 1450,
+    "expectedTotal": 71
+   }
+  ],
+  "matches": [
+   {
+    "a": "Mehmet Çağlar Çağlayan",
+    "b": "Oğuz Cigilli",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Mehmet Çağlar Çağlayan",
+    "b": "Kubilay Akaydın",
+    "setsA": 0,
+    "setsB": 3
+   },
+   {
+    "a": "Mehmet Çağlar Çağlayan",
+    "b": "Tuncay Gök",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "Mehmet Çağlar Çağlayan",
+    "b": "Abdülbasit Yavuz",
+    "setsA": 1,
+    "setsB": 3
+   },
+   {
+    "a": "Mehmet Çağlar Çağlayan",
+    "b": "Metehan Kömbeci",
+    "setsA": 1,
+    "setsB": 3
+   },
+   {
+    "a": "Oğuz Cigilli",
+    "b": "Kubilay Akaydın",
+    "setsA": 0,
+    "setsB": 3
+   },
+   {
+    "a": "Oğuz Cigilli",
+    "b": "Tuncay Gök",
+    "setsA": 1,
+    "setsB": 3
+   },
+   {
+    "a": "Oğuz Cigilli",
+    "b": "Abdülbasit Yavuz",
+    "setsA": 0,
+    "setsB": 3
+   },
+   {
+    "a": "Oğuz Cigilli",
+    "b": "Metehan Kömbeci",
+    "setsA": 0,
+    "setsB": 3
+   },
+   {
+    "a": "Kubilay Akaydın",
+    "b": "Tuncay Gök",
+    "setsA": 3,
+    "setsB": 1
+   },
+   {
+    "a": "Kubilay Akaydın",
+    "b": "Abdülbasit Yavuz",
+    "setsA": 3,
+    "setsB": 0
+   },
+   {
+    "a": "Kubilay Akaydın",
+    "b": "Metehan Kömbeci",
+    "setsA": 1,
+    "setsB": 3
+   },
+   {
+    "a": "Tuncay Gök",
+    "b": "Abdülbasit Yavuz",
+    "setsA": 2,
+    "setsB": 3
+   },
+   {
+    "a": "Tuncay Gök",
+    "b": "Metehan Kömbeci",
+    "setsA": 0,
+    "setsB": 3
+   },
+   {
+    "a": "Abdülbasit Yavuz",
+    "b": "Metehan Kömbeci",
+    "setsA": 0,
+    "setsB": 3
+   }
+  ]
+ }
+]

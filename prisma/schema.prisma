@@ -1,0 +1,220 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // Neon: havuzlu (pooled) bağlantı adresi
+  directUrl = env("DATABASE_URL_UNPOOLED") // Neon: doğrudan bağlantı (migration için)
+}
+
+enum Role {
+  SUPER_ADMIN
+  LEAGUE_MANAGER
+  PLAYER
+}
+
+enum RoundStatus {
+  DRAFT // Gruplar hazırlanıyor
+  ATTENDANCE // Oyuncular katılım bildiriyor (son katılım gününe kadar)
+  OPEN // Fikstür oluştu, maçlar oynanıyor, sonuç girilebilir
+  CLOSED // Puanlar oyunculara işlendi
+}
+
+enum Attendance {
+  PENDING // Bildirmedi
+  YES // Katılacak
+  NO // Katılamayacağını bildirdi
+  AUTO_NO // Son güne kadar bildirmedi: hükmen
+}
+
+enum MatchStatus {
+  PENDING // Sonuç girilmedi
+  SUBMITTED // Bir oyuncu girdi, rakip onayı bekleniyor
+  DISPUTED // Rakip itiraz etti, lig sorumlusu karar verecek
+  APPROVED // Kesinleşti, puana yansır
+}
+
+enum ResultKind {
+  NORMAL // Set skoruyla oynandı
+  BOTH_ABSENT // İki oyuncu da gelmedi: hükmen, iki taraftan da puan düşülür
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         Role
+  playerId     String?  @unique
+  player       Player?  @relation(fields: [playerId], references: [id], onDelete: SetNull)
+  phone        String?
+  active       Boolean  @default(true)
+  isDemo       Boolean  @default(false) // Deneme verisi
+  isPilot      Boolean  @default(false) // Pilot uygulama verisi (Ayarlar'dan topluca silinebilir)
+  createdAt    DateTime @default(now())
+
+  submitted Match[] @relation("submittedBy")
+  confirmed Match[] @relation("confirmedBy")
+}
+
+model Player {
+  id         String   @id @default(cuid())
+  name       String
+  rating     Int // Güncel Masa Tenisi Rating puanı
+  setAverage Int      @default(0) // Kümülatif set averajı
+  matches    Int      @default(0) // Toplam maç (geçmişten aktarılanlar dahil)
+  wins       Int      @default(0) // Toplam galibiyet
+  phone      String?
+  photoUrl   String?
+  active     Boolean  @default(true)
+  isDemo     Boolean  @default(false) // Deneme verisi
+  isPilot    Boolean  @default(false) // Pilot uygulama verisi (Ayarlar'dan topluca silinebilir)
+  createdAt  DateTime @default(now())
+
+  user     User?
+  entries  GroupEntry[]
+  matchesA Match[]      @relation("playerA")
+  matchesB Match[]      @relation("playerB")
+}
+
+/// Kalıcı grup düzeni: her grubun haftalık günü, saati, masası ve kişi sayısı. Her hafta bu düzene göre gruplar kurulur.
+model GroupSlot {
+  id        String @id @default(cuid())
+  code      String @unique // A, B, C…
+  weekday   Int // 1 = Pazartesi … 7 = Pazar
+  startTime String // "16:00"
+  endTime   String? // "21:00"
+  place     String? // ör. "1 Numaralı Masa"
+  size      Int    @default(6)
+  order     Int    @default(0)
+}
+
+/// Bir hafta (tur)
+model Round {
+  id         String      @id @default(cuid())
+  name       String // ör. "6-12 Ekim"
+  status     RoundStatus @default(DRAFT)
+  isDemo     Boolean     @default(false) // Deneme verisi
+  weekStart  DateTime? // Haftanın pazartesisi
+  deadline   DateTime? // Son katılım bildirimi zamanı; geçince fikstür otomatik oluşur
+  createdAt  DateTime    @default(now())
+  openedAt   DateTime? // Fikstürün oluştuğu an
+  closedAt   DateTime?
+  rules      Json? // Kapanışta kullanılan puan kuralları (sonradan kural değişse de geçmiş aynı kalır)
+
+  groups Group[]
+}
+
+model Group {
+  id       String  @id @default(cuid())
+  roundId  String
+  round    Round   @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  code     String // A, B, C…
+  schedule String? // ör. "Pazar 16:00-21:00 · 1 Numaralı Masa"
+  playAt   DateTime? // Maç günü ve başlama saati
+  size     Int       @default(6) // Fikstürde tamamlanacak kişi sayısı
+  order    Int       @default(0)
+  telegramSentAt DateTime?
+  telegramError  String?
+
+  entries GroupEntry[]
+  matches Match[]
+
+  @@unique([roundId, code])
+}
+
+/// Oyuncunun bir turdaki grubu. Maç öncesi değerler tur açılırken, sonuçlar tur kapanırken yazılır.
+model GroupEntry {
+  id           String @id @default(cuid())
+  groupId      String
+  group        Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  playerId     String
+  player       Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  seed         Int    @default(0) // Grup içi sıra (puana göre)
+  attendance   Attendance @default(PENDING)
+  attendanceAt DateTime?
+  movedFrom    String? // Eksik grubu tamamlamak için alt gruptan alındıysa asıl grubunun kodu
+  ratingBefore Int
+  setAvgBefore Int    @default(0)
+  manualBonus  Int    @default(0) // Lig sorumlusunun elle eklediği/düştüğü puan
+  note         String?
+
+  // Tur kapanınca doldurulur
+  matchPoints Int?
+  bonus       Int?
+  ratingAfter Int?
+  setAvgAfter Int?
+  played      Int?
+  won         Int?
+
+  @@unique([groupId, playerId])
+}
+
+model Match {
+  id          String      @id @default(cuid())
+  groupId     String
+  group       Group       @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  playerAId   String
+  playerA     Player      @relation("playerA", fields: [playerAId], references: [id], onDelete: Cascade)
+  playerBId   String
+  playerB     Player      @relation("playerB", fields: [playerBId], references: [id], onDelete: Cascade)
+  status      MatchStatus @default(PENDING)
+  kind        ResultKind?
+  setsA       Int?
+  setsB       Int?
+  submittedById String?
+  submittedBy   User?     @relation("submittedBy", fields: [submittedById], references: [id], onDelete: SetNull)
+  submittedAt   DateTime?
+  confirmedById String?
+  confirmedBy   User?     @relation("confirmedBy", fields: [confirmedById], references: [id], onDelete: SetNull)
+  confirmedAt   DateTime?
+  disputeNote   String?
+  updatedAt     DateTime  @updatedAt
+  setScores     Json? // Set skorları [[11,7],[9,11],…] (A'nın gözünden; skorborddan gelir)
+
+  // Canlı skor (skorbord): sayı sırası, ilk servis ve eşzamanlılık için sürüm
+  livePoints      Json?
+  liveFirstServer String?
+  liveStartedAt   DateTime?
+  liveUpdatedAt   DateTime?
+  liveById        String?
+  liveVersion     Int       @default(0)
+
+  @@unique([groupId, playerAId, playerBId])
+}
+
+/// Puan kuralları (tek satır, id = 1). Kayıt yoksa src/lib/rating.ts'deki varsayılanlar kullanılır.
+model RuleSettings {
+  id          Int      @id @default(1)
+  data        Json // Rules; puan farkı tablosunda son satırın üst sınırı null
+  updatedBy   String?
+  updatedAt   DateTime @updatedAt
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+/// Sitedeki "Başvuru yap" formundan gelen yeni oyuncu başvurusu. Puanı onaylayan kişi belirler.
+model Application {
+  id            String            @id @default(cuid())
+  name          String
+  email         String
+  phone         String
+  passwordHash  String? // Onayda kullanıcı hesabına aktarılır, karar verilince silinir
+  photoUrl      String?
+  about         String? // Masa tenisi geçmişi (isteğe bağlı)
+  status        ApplicationStatus @default(PENDING)
+  rejectReason  String?
+  decidedBy     String?
+  decidedAt     DateTime?
+  playerId      String?
+  telegramError String?
+  createdAt     DateTime          @default(now())
+
+  @@index([status, createdAt])
+  @@index([email])
+}
