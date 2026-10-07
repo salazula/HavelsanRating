@@ -1,24 +1,24 @@
-/* Planet temalı SVG çizimler: masa tenisi topu bir gezegen, raketler onun uyduları. Harici görsel gerektirmez. */
+/* Havelsan temalı SVG çizimler: masa tenisi topu bir gezegen, raketler onun uyduları. Harici görsel gerektirmez. */
 
 /** Halka yolu (animateMotion için): merkez, yarıçaplar */
 function ellipsePath(cx: number, cy: number, rx: number, ry: number) {
   return `M${cx - rx},${cy} a${rx},${ry} 0 1,0 ${rx * 2},0 a${rx},${ry} 0 1,0 ${-rx * 2},0`;
 }
 
-/** Top-gezegen: turuncu küre, dikiş çizgisi ve parıltı */
+/** Top-gezegen: beyaz küre, dikiş çizgisi ve parıltı */
 function BallPlanet({ id, cx, cy, r }: { id: string; cx: number; cy: number; r: number }) {
   return (
     <g>
       <defs>
         <radialGradient id={`${id}-ball`} cx=".34" cy=".3" r=".8">
-          <stop offset="0" stopColor="#fff4dc" />
-          <stop offset=".35" stopColor="#ffc35a" />
-          <stop offset=".8" stopColor="#f08a00" />
-          <stop offset="1" stopColor="#b85e00" />
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset=".35" stopColor="#f3f6fa" />
+          <stop offset=".8" stopColor="#c9d4e2" />
+          <stop offset="1" stopColor="#8a9bb3" />
         </radialGradient>
         <radialGradient id={`${id}-night`} cx=".3" cy=".25" r=".95">
-          <stop offset=".55" stopColor="#2a1060" stopOpacity="0" />
-          <stop offset="1" stopColor="#2a1060" stopOpacity=".45" />
+          <stop offset=".55" stopColor="#0a2350" stopOpacity="0" />
+          <stop offset="1" stopColor="#0a2350" stopOpacity=".45" />
         </radialGradient>
         <clipPath id={`${id}-clip`}>
           <circle cx={cx} cy={cy} r={r} />
@@ -30,8 +30,8 @@ function BallPlanet({ id, cx, cy, r }: { id: string; cx: number; cy: number; r: 
         <path
           d={`M${cx - r * 1.1},${cy + r * 0.15} C${cx - r * 0.4},${cy - r * 0.35} ${cx + r * 0.4},${cy + r * 0.55} ${cx + r * 1.1},${cy + r * 0.05}`}
           fill="none"
-          stroke="#fff"
-          strokeOpacity=".45"
+          stroke="#5b8fcf"
+          strokeOpacity=".35"
           strokeWidth={Math.max(1, r * 0.035)}
         />
         {/* Gece tarafı */}
@@ -46,8 +46,8 @@ export function Logo({ className = "h-9 w-9" }: { className?: string }) {
     <svg viewBox="0 0 48 48" className={className} aria-hidden>
       <defs>
         <linearGradient id="lg-ring" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#c3bbf2" />
-          <stop offset="1" stopColor="#8473e6" />
+          <stop offset="0" stopColor="#b5cde9" />
+          <stop offset="1" stopColor="#5b8fcf" />
         </linearGradient>
       </defs>
       <g transform="rotate(-22 24 24)">
@@ -55,6 +55,8 @@ export function Logo({ className = "h-9 w-9" }: { className?: string }) {
         <path d="M3 24 a21 6.5 0 0 1 42 0" fill="none" stroke="url(#lg-ring)" strokeWidth="2.6" opacity=".7" />
       </g>
       <BallPlanet id="lg" cx={24} cy={24} r={12} />
+      {/* Havelsan "H" harfi */}
+      <path d="M19.5 18.5h2.6v4.2h3.8v-4.2h2.6v11h-2.6v-4.4h-3.8v4.4h-2.6z" fill="#081a36" />
       <g transform="rotate(-22 24 24)">
         {/* Halkanın ön yarısı */}
         <path d="M3 24 a21 6.5 0 0 0 42 0" fill="none" stroke="url(#lg-ring)" strokeWidth="2.6" strokeLinecap="round" />
@@ -87,22 +89,22 @@ export function HeroArt({ className = "" }: { className?: string }) {
     <svg viewBox="0 0 640 460" className={className} role="img" aria-label="Masa tenisi topundan bir gezegen ve onun yörüngesinde dönen raketler">
       <defs>
         <radialGradient id="ha-glow" cx=".5" cy=".5" r=".5">
-          <stop offset="0" stopColor="#ffa41f" stopOpacity=".45" />
-          <stop offset=".6" stopColor="#6450d6" stopOpacity=".18" />
-          <stop offset="1" stopColor="#6450d6" stopOpacity="0" />
+          <stop offset="0" stopColor="#1aa7e0" stopOpacity=".45" />
+          <stop offset=".6" stopColor="#2f6db8" stopOpacity=".18" />
+          <stop offset="1" stopColor="#2f6db8" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="ha-ring" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#e1ddfa" stopOpacity=".2" />
-          <stop offset=".5" stopColor="#ffd38c" stopOpacity=".95" />
-          <stop offset="1" stopColor="#c3bbf2" stopOpacity=".3" />
+          <stop offset="0" stopColor="#dbe7f5" stopOpacity=".2" />
+          <stop offset=".5" stopColor="#9bdcf5" stopOpacity=".95" />
+          <stop offset="1" stopColor="#b5cde9" stopOpacity=".3" />
         </linearGradient>
         <linearGradient id="ha-red" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#ff6b86" />
           <stop offset="1" stopColor="#b3113a" />
         </linearGradient>
         <linearGradient id="ha-black" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#4a4668" />
-          <stop offset="1" stopColor="#16132e" />
+          <stop offset="0" stopColor="#475569" />
+          <stop offset="1" stopColor="#0e1a2e" />
         </linearGradient>
       </defs>
 
@@ -111,7 +113,7 @@ export function HeroArt({ className = "" }: { className?: string }) {
       {/* Yörüngeler ve uydular */}
       <g transform={`rotate(-12 ${cx} ${cy})`}>
         {orbits.map((o, i) => (
-          <ellipse key={i} cx={cx} cy={cy} rx={o.rx} ry={o.ry} fill="none" stroke="#c3bbf2" strokeOpacity=".35" strokeWidth="1.5" strokeDasharray="3 9" />
+          <ellipse key={i} cx={cx} cy={cy} rx={o.rx} ry={o.ry} fill="none" stroke="#b5cde9" strokeOpacity=".35" strokeWidth="1.5" strokeDasharray="3 9" />
         ))}
         <g>
           <PaddleMoon fill="url(#ha-red)" scale={1.6} />
@@ -122,7 +124,7 @@ export function HeroArt({ className = "" }: { className?: string }) {
           <animateMotion dur={orbits[1]!.dur} repeatCount="indefinite" begin="-9s" path={ellipsePath(cx, cy, orbits[1]!.rx, orbits[1]!.ry)} />
         </g>
         <g>
-          <circle r="5" fill="#8473e6" />
+          <circle r="5" fill="#5b8fcf" />
           <animateMotion dur={orbits[1]!.dur} repeatCount="indefinite" begin="-20s" path={ellipsePath(cx, cy, orbits[1]!.rx, orbits[1]!.ry)} />
         </g>
       </g>
@@ -144,7 +146,7 @@ export function HeroArt({ className = "" }: { className?: string }) {
       </g>
       <g className="animate-bounce-ball" style={{ animationDelay: "-1.2s" }}>
         <rect x="118" y="318" width="54" height="28" rx="14" fill="#fff" fillOpacity=".12" stroke="#fff" strokeOpacity=".3" />
-        <text x="145" y="337" textAnchor="middle" fontSize="14" fontWeight="700" fill="#e1ddfa" fontFamily="var(--font-grotesk), sans-serif">1798</text>
+        <text x="145" y="337" textAnchor="middle" fontSize="14" fontWeight="700" fill="#dbe7f5" fontFamily="var(--font-grotesk), sans-serif">1798</text>
       </g>
 
       {/* Parlayan yıldızlar */}
@@ -168,12 +170,12 @@ export function OrbitMini({ className = "" }: { className?: string }) {
     <svg viewBox="0 0 220 160" className={className} aria-hidden>
       <defs>
         <linearGradient id="om-ring" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#c3bbf2" stopOpacity=".3" />
-          <stop offset=".5" stopColor="#ffd38c" />
-          <stop offset="1" stopColor="#c3bbf2" stopOpacity=".4" />
+          <stop offset="0" stopColor="#b5cde9" stopOpacity=".3" />
+          <stop offset=".5" stopColor="#9bdcf5" />
+          <stop offset="1" stopColor="#b5cde9" stopOpacity=".4" />
         </linearGradient>
       </defs>
-      <ellipse cx="110" cy="80" rx="100" ry="30" fill="none" stroke="#c3bbf2" strokeOpacity=".35" strokeDasharray="2 7" transform="rotate(-14 110 80)" />
+      <ellipse cx="110" cy="80" rx="100" ry="30" fill="none" stroke="#b5cde9" strokeOpacity=".35" strokeDasharray="2 7" transform="rotate(-14 110 80)" />
       <g transform="rotate(-14 110 80)">
         <path d="M45 80 a65 14 0 0 1 130 0" fill="none" stroke="url(#om-ring)" strokeWidth="6" opacity=".55" />
       </g>
@@ -182,7 +184,7 @@ export function OrbitMini({ className = "" }: { className?: string }) {
         <path d="M45 80 a65 14 0 0 0 130 0" fill="none" stroke="url(#om-ring)" strokeWidth="6" strokeLinecap="round" />
       </g>
       <circle cx="196" cy="54" r="7" fill="#fb4d6d" />
-      <circle cx="26" cy="112" r="4" fill="#8473e6" />
+      <circle cx="26" cy="112" r="4" fill="#5b8fcf" />
     </svg>
   );
 }
@@ -191,10 +193,10 @@ export function OrbitMini({ className = "" }: { className?: string }) {
 export function EmptyArt({ className = "h-24 w-24" }: { className?: string }) {
   return (
     <svg viewBox="0 0 120 120" className={className} aria-hidden>
-      <ellipse cx="60" cy="62" rx="50" ry="18" fill="none" stroke="#c3bbf2" strokeWidth="2" strokeDasharray="3 6" transform="rotate(-14 60 62)" />
+      <ellipse cx="60" cy="62" rx="50" ry="18" fill="none" stroke="#b5cde9" strokeWidth="2" strokeDasharray="3 6" transform="rotate(-14 60 62)" />
       <BallPlanet id="ea" cx={60} cy={60} r={20} />
       <circle cx="104" cy="44" r="5" fill="#fb4d6d" />
-      <circle cx="18" cy="84" r="3" fill="#8473e6" />
+      <circle cx="18" cy="84" r="3" fill="#5b8fcf" />
     </svg>
   );
 }

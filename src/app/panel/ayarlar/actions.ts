@@ -37,7 +37,7 @@ export async function deletePilotAction(_p: ActionState): Promise<ActionState> {
 
 export async function testTelegram(_p: ActionState): Promise<ActionState> {
   await requireUser(["SUPER_ADMIN"]);
-  const res = await sendTelegram("🏓 <b>Masa Tenisi Rating</b>\nTelegram bağlantısı çalışıyor. Grup sonuçları bu kanala gönderilecek.");
+  const res = await sendTelegram("🏓 <b>Havelsan Rating</b>\nTelegram bağlantısı çalışıyor. Grup sonuçları bu kanala gönderilecek.");
   return res.ok ? { ok: "Deneme mesajı gönderildi." } : { error: res.error };
 }
 

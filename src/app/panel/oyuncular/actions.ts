@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { EMAIL_DOMAIN_ERROR, isAllowedEmail } from "@/lib/email";
 import { requireUser } from "@/lib/auth";
 import type { ActionState } from "@/lib/action-state";
 
@@ -111,6 +112,7 @@ export async function createAccount(playerId: string, _p: ActionState, fd: FormD
   const email = String(fd.get("email") ?? "").trim().toLowerCase();
   const password = String(fd.get("password") ?? "");
   if (!z.string().email().safeParse(email).success) return { error: "Geçerli bir e-posta girin." };
+  if (!isAllowedEmail(email)) return { error: EMAIL_DOMAIN_ERROR };
   if (password.length < 8) return { error: "Şifre en az 8 karakter olmalı." };
   const player = await db.player.findUnique({ where: { id: playerId }, include: { user: true } });
   if (!player) return { error: "Oyuncu bulunamadı." };

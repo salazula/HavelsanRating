@@ -110,7 +110,7 @@ async function sendGroupReport(g: ReportGroup, rules: Rules, sample = false) {
     const r = await callTelegram("sendPhoto", { caption: text }, { field: "photo", png });
     return r.ok ? r : sendTelegram(full());
   }
-  const title = `🏓 <b>Masa Tenisi Rating · ${esc(g.round.name)} · ${esc(g.code)} Grubu</b>`;
+  const title = `🏓 <b>Havelsan Rating · ${esc(g.round.name)} · ${esc(g.code)} Grubu</b>`;
   await callTelegram("sendPhoto", { caption: title }, { field: "photo", png });
   return sendTelegram(text);
 }
@@ -138,7 +138,7 @@ function formatGroupReport(g: ReportGroup, rules: Rules, sample = false, withMat
   const res = groupResults(g, rules);
   const lines: string[] = [];
   if (sample) lines.push("🧪 <i>Örnek mesaj: gerçek bir sonuç değildir, grup tamamlanınca gelecek mesajın görünümüdür.</i>", "");
-  lines.push(`🏓 <b>Masa Tenisi Rating · ${esc(g.round.name)} · ${esc(g.code)} Grubu</b>`);
+  lines.push(`🏓 <b>Havelsan Rating · ${esc(g.round.name)} · ${esc(g.code)} Grubu</b>`);
   if (g.schedule) lines.push(`📅 ${esc(g.schedule)}`);
   const stars = groupStarsOf(g, res);
   // Haftanın yıldızı görselde büyük şeritle gösterilir; yazıda yalnızca görsel gönderilemezse yer alır

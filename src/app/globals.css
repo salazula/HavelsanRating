@@ -4,27 +4,27 @@
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-grotesk), var(--font-manrope), ui-sans-serif, sans-serif;
 
-  --color-ink: #16132e;
-  --color-ink-soft: #4a4668;
-  --color-paper: #f6f5fc;
-  --color-line: #e6e3f3;
+  --color-ink: #0e1a2e;
+  --color-ink-soft: #475569;
+  --color-paper: #f4f7fb;
+  --color-line: #e1e8f1;
 
-  /* Gece gökyüzü (tarihsel adı "table"; tüm ana renkler buradan gelir) */
-  --color-table-50: #f1effd;
-  --color-table-100: #e1ddfa;
-  --color-table-200: #c3bbf2;
-  --color-table-400: #8473e6;
-  --color-table-500: #6450d6;
-  --color-table-600: #4b37b8;
-  --color-table-700: #382890;
-  --color-table-800: #21185a;
-  --color-table-900: #110c33;
+  /* Havelsan laciverti (tarihsel adı "table"; tüm ana renkler buradan gelir) */
+  --color-table-50: #eef4fb;
+  --color-table-100: #dbe7f5;
+  --color-table-200: #b5cde9;
+  --color-table-400: #5b8fcf;
+  --color-table-500: #2f6db8;
+  --color-table-600: #1d5299;
+  --color-table-700: #163f7a;
+  --color-table-800: #0f2c57;
+  --color-table-900: #081a36;
 
-  /* Gezegen sarısı: top / gezegen */
-  --color-ball-300: #ffd38c;
-  --color-ball-400: #ffbb4a;
-  --color-ball-500: #ffa41f;
-  --color-ball-600: #b45f00;
+  /* Havelsan gök mavisi: vurgu rengi (tarihsel adı "ball") */
+  --color-ball-300: #9bdcf5;
+  --color-ball-400: #4cc3ef;
+  --color-ball-500: #1aa7e0;
+  --color-ball-600: #0369a1;
 
   /* Raket kırmızısı (eksi puanlar) */
   --color-rubber-500: #e11d48;
@@ -65,9 +65,9 @@ h1, h2, h3, .font-display {
 .cosmos {
   background-color: var(--color-table-900);
   background-image:
-    radial-gradient(700px 360px at 85% -10%, rgba(255, 164, 31, .22), transparent 60%),
-    radial-gradient(900px 500px at 0% 120%, rgba(100, 80, 214, .55), transparent 60%),
-    linear-gradient(165deg, #2a1d70 0%, var(--color-table-900) 55%, #0a0722 100%);
+    radial-gradient(700px 360px at 85% -10%, rgba(26, 167, 224, .22), transparent 60%),
+    radial-gradient(900px 500px at 0% 120%, rgba(47, 109, 184, .55), transparent 60%),
+    linear-gradient(165deg, #123a7a 0%, var(--color-table-900) 55%, #050f22 100%);
 }
 
 /* Yıldız alanı: iki katman, farklı boyut ve sıklıkta */
@@ -77,9 +77,9 @@ h1, h2, h3, .font-display {
     radial-gradient(1px 1px at 32% 78%, #fff, transparent 60%),
     radial-gradient(1.5px 1.5px at 48% 12%, #fff, transparent 60%),
     radial-gradient(1px 1px at 64% 58%, #fff, transparent 60%),
-    radial-gradient(1.5px 1.5px at 78% 30%, #ffe1ad, transparent 60%),
+    radial-gradient(1.5px 1.5px at 78% 30%, #bfe8fa, transparent 60%),
     radial-gradient(1px 1px at 88% 84%, #fff, transparent 60%),
-    radial-gradient(1px 1px at 6% 66%, #d8d0ff, transparent 60%),
+    radial-gradient(1px 1px at 6% 66%, #cfe0f5, transparent 60%),
     radial-gradient(1px 1px at 24% 44%, #fff, transparent 60%);
   background-size: 260px 220px;
 }
@@ -93,14 +93,14 @@ h1, h2, h3, .font-display {
 }
 
 @utility card {
-  @apply rounded-3xl border border-line bg-white shadow-[0_1px_2px_rgba(22,19,46,.04),0_12px_32px_-16px_rgba(75,55,184,.22)];
+  @apply rounded-3xl border border-line bg-white shadow-[0_1px_2px_rgba(22,19,46,.04),0_12px_32px_-16px_rgba(29,82,153,.22)];
 }
 
 @utility btn {
   @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-table-500 disabled:opacity-50;
 }
 .btn-primary { @apply btn bg-table-600 text-white hover:bg-table-700; }
-.btn-accent { @apply btn bg-ball-500 text-table-900 shadow-[0_0_24px_-4px_rgba(255,164,31,.6)] hover:bg-ball-400; }
+.btn-accent { @apply btn bg-ball-500 text-table-900 shadow-[0_0_24px_-4px_rgba(26,167,224,.6)] hover:bg-ball-400; }
 .btn-ghost { @apply btn border border-line bg-white text-ink hover:bg-table-50; }
 .btn-danger { @apply btn border border-rubber-500/30 bg-white text-rubber-600 hover:bg-rubber-500/5; }
 

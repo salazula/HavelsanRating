@@ -42,7 +42,7 @@ export default async function HomePage() {
               Her maç <span className="text-ball-400">yörüngeni</span> değiştirir.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-table-100">
-              Masa tenisi rating sistemi: haftalık gruplar, puan farkına göre hesaplanan rating, güncel sıralama ve istatistikler.
+              Havelsan masa tenisi rating sistemi: haftalık gruplar, puan farkına göre hesaplanan rating, güncel sıralama ve istatistikler.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/siralama" className="btn-accent px-5 py-3 text-base">Sıralama</Link>

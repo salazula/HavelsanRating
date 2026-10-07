@@ -16,13 +16,13 @@ export default async function SetupPage() {
       <div className="card w-full max-w-md p-8">
         <div className="mb-6 flex items-center gap-2.5">
           <Logo />
-          <span className="font-display font-bold">Masa Tenisi Rating</span>
+          <span className="font-display font-bold">Havelsan Rating</span>
         </div>
         <h1 className="text-2xl font-bold">İlk kurulum</h1>
         <p className="mt-1 mb-6 text-sm text-ink-soft">Süper admin hesabını oluşturun. Bu ekran sadece bir kez, sistemde hiç kullanıcı yokken açılır.</p>
         <ActionForm action={setupAdmin} submitLabel="Hesabı oluştur" submitClass="btn-primary w-full py-3">
           <Field label="Ad soyad"><input name="name" required className="input" /></Field>
-          <Field label="E-posta"><input name="email" type="email" required className="input" /></Field>
+          <Field label="E-posta"><input name="email" type="email" required className="input" placeholder="ad.soyad@havelsan.com.tr" /></Field>
           <Field label="Şifre" hint="En az 8 karakter"><input name="password" type="password" minLength={8} required className="input" /></Field>
         </ActionForm>
       </div>

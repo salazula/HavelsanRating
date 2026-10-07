@@ -22,7 +22,7 @@ type Props = {
 };
 
 function Ball({ className = "" }: { className?: string }) {
-  return <span className={`inline-block h-3.5 w-3.5 rounded-full bg-ball-400 shadow-[0_0_12px_rgba(255,187,74,.9)] ${className}`} aria-label="Servis" />;
+  return <span className={`inline-block h-3.5 w-3.5 rounded-full bg-ball-400 shadow-[0_0_12px_rgba(76,195,239,.9)] ${className}`} aria-label="Servis" />;
 }
 
 /* Tam ekran: Android/masaüstü tarayıcılarında Fullscreen API; iPhone Safari desteklemez, orada "Ana Ekrana Ekle" önerilir. */
@@ -315,7 +315,7 @@ function Shell({
       </header>
       {tip && (
         <p className="relative mx-3 mt-1 rounded-xl bg-white/10 px-3 py-2 text-xs text-table-100">
-          iPhone’da tam ekran için Safari’de <b>Paylaş</b> › <b>Ana Ekrana Ekle</b>’ye dokunun ve siteyi ana ekrandaki MT Rating simgesinden açın.
+          iPhone’da tam ekran için Safari’de <b>Paylaş</b> › <b>Ana Ekrana Ekle</b>’ye dokunun ve siteyi ana ekrandaki Havelsan Rating simgesinden açın.
         </p>
       )}
       <div className="relative flex min-h-0 flex-1 flex-col">{children}</div>

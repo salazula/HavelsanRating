@@ -15,7 +15,7 @@ export default async function LivePage() {
   return (
     <>
       <AutoRefresh seconds={5} />
-      <PageHeader eyebrow="Masa Tenisi Rating" title="Canlı skor" subtitle="Masada skorbordla tutulan maçlar sayı sayı burada. Sayfa kendiliğinden yenilenir." />
+      <PageHeader eyebrow="Havelsan Rating" title="Canlı skor" subtitle="Masada skorbordla tutulan maçlar sayı sayı burada. Sayfa kendiliğinden yenilenir." />
       <div className="mx-auto max-w-6xl space-y-10 px-4 pt-10 sm:px-6">
         <section>
           <h2 className="mb-4 flex items-center gap-2 text-xl font-bold">

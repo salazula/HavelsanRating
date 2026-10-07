@@ -70,7 +70,7 @@ export default async function PlayersPage({ searchParams }: PageProps<"/panel/oy
                   )
                 ) : (
                   <ActionForm action={createAccount.bind(null, p.id)} submitLabel="Giriş hesabı aç" submitClass="btn-ghost" className="flex flex-wrap items-end gap-3">
-                    <div className="w-64"><Field label="E-posta"><input name="email" type="email" required className="input" /></Field></div>
+                    <div className="w-64"><Field label="E-posta"><input name="email" type="email" required className="input" placeholder="ad.soyad@havelsan.com.tr" /></Field></div>
                     <div className="w-48"><Field label="Geçici şifre"><input name="password" type="text" minLength={8} required className="input" /></Field></div>
                   </ActionForm>
                 )}

@@ -12,8 +12,8 @@ import { signed } from "./labels";
  */
 
 const C = {
-  ink: "#16132e", soft: "#4a4668", line: "#e6e3f3", paper: "#f6f5fc", t50: "#f1effd", t200: "#c3bbf2", t900: "#110c33",
-  ball: "#ffbb4a", gold50: "#fff7e6", win: "#047857", winBg: "#ecfdf5", lose: "#be123c", loseBg: "#fff1f2", pos: "#059669",
+  ink: "#0e1a2e", soft: "#475569", line: "#e1e8f1", paper: "#f4f7fb", t50: "#eef4fb", t200: "#b5cde9", t900: "#081a36",
+  ball: "#4cc3ef", gold50: "#e8f6fd", win: "#047857", winBg: "#ecfdf5", lose: "#be123c", loseBg: "#fff1f2", pos: "#059669",
 };
 
 const dir = join(process.cwd(), "assets/fonts");
@@ -27,7 +27,7 @@ const dayFmt = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "long",
 
 const HEAD_H = 192, NAME_W = 340, RATING_W = 96, CELL_W = 74, MG_W = 78, PTS_W = 92, AFTER_W = 104, PAD = 36, ROW_H = 62;
 
-function Star({ size, color = "#ffa41f" }: { size: number; color?: string }) {
+function Star({ size, color = "#1aa7e0" }: { size: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24">
       <path fill={color} d="M12 1.8l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.6l-6.2 3.3L7 14l-5-4.9 6.9-1z" />
@@ -127,7 +127,7 @@ export async function renderGroupImage({ group, roundName, results, site }: Prop
           )}
         </div>
         {stars.length > 0 && (
-          <div style={{ display: "flex", flexDirection: "column", margin: `40px ${PAD}px 0`, padding: "22px 30px", borderRadius: 22, background: "linear-gradient(120deg, #ffa41f 0%, #ffd38c 55%, #ffbb4a 100%)", color: C.t900 }}>
+          <div style={{ display: "flex", flexDirection: "column", margin: `40px ${PAD}px 0`, padding: "22px 30px", borderRadius: 22, background: "linear-gradient(120deg, #1aa7e0 0%, #9bdcf5 55%, #4cc3ef 100%)", color: C.t900 }}>
             <div style={{ display: "flex", alignItems: "center", fontSize: 22, fontWeight: 800, letterSpacing: 5 }}>
               <Star size={30} color={C.t900} />
               <div style={{ display: "flex", margin: "0 12px" }}>HAFTANIN YILDIZI{stars.length > 1 ? "LARI" : ""}</div>

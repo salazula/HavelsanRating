@@ -1,17 +1,19 @@
-# Masa Tenisi Rating
+# Havelsan Rating
 
-Masa tenisi rating sistemi: oyuncu sıralaması, haftalık gruplar, oyuncuların girip rakiplerinin onayladığı maç sonuçları ve tur sonunda otomatik hesaplanan rating.
+Havelsan içi masa tenisi rating sistemi: oyuncu sıralaması, haftalık gruplar, oyuncuların girip rakiplerinin onayladığı maç sonuçları ve tur sonunda otomatik hesaplanan rating.
 
 **Teknoloji:** Next.js 16 (App Router, Server Actions) · TypeScript · Tailwind CSS 4 · Prisma · PostgreSQL
 
+**E-posta kısıtı:** Hesaplar (kurulum, başvuru, panelden açılan kullanıcı/oyuncu hesapları) sadece `@havelsan.com.tr` adresleriyle açılabilir. Alan adı `src/lib/email.ts` içindeki `EMAIL_DOMAIN` sabitindedir.
+
 ## Ücretsiz yayına alma (Vercel + Neon)
 
-1. **Vercel projesi:** [vercel.com](https://vercel.com) adresine GitHub hesabıyla girin → *Add New… › Project* → `PlanetRating` reposunu *Import* edin → *Deploy*. İlk kurulum veritabanı olmadığı için hata verebilir, bu normaldir.
+1. **Vercel projesi:** [vercel.com](https://vercel.com) adresine GitHub hesabıyla girin → *Add New… › Project* → `HavelsanRating` reposunu *Import* edin → *Deploy*. İlk kurulum veritabanı olmadığı için hata verebilir, bu normaldir.
 2. **Veritabanı:** Projede *Storage › Create Database › Neon (Serverless Postgres)* → ücretsiz plan, bölge *Frankfurt (eu-central-1)* → projeye bağlayın. `DATABASE_URL` ve `DATABASE_URL_UNPOOLED` otomatik eklenir.
 3. **Fotoğraf depolama:** *Storage › Create › Blob* → projeye bağlayın (`BLOB_READ_WRITE_TOKEN` otomatik eklenir). Oyuncu profil fotoğrafları burada saklanır.
 4. **Ortam değişkenleri** (*Settings › Environment Variables*):
    - `AUTH_SECRET`: uzun rastgele bir değer (ör. [generate-secret.vercel.app/32](https://generate-secret.vercel.app/32))
-   - `TELEGRAM_BOT_TOKEN` (@BotFather’dan) ve `TELEGRAM_CHAT_ID` (ör. `@MasaTenisiRating`); bot kanala yönetici olarak eklenmeli
+   - `TELEGRAM_BOT_TOKEN` (@BotFather’dan) ve `TELEGRAM_CHAT_ID` (ör. `@HavelsanRating`); bot kanala yönetici olarak eklenmeli
    - `SITE_URL` (isteğe bağlı): kendi alan adınız; Telegram mesajındaki bağlantı için
    - `CRON_SECRET` (isteğe bağlı): günlük otomatik fikstür kontrolünü korur
 5. *Deployments* sekmesinden son kurulumu **Redeploy** edin. Tablolar derleme sırasında otomatik oluşturulur.

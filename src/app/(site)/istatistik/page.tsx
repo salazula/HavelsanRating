@@ -38,7 +38,7 @@ export default async function StatsPage() {
   if (!players.length) {
     return (
       <>
-        <PageHeader eyebrow="Masa Tenisi Rating" title="İstatistikler" />
+        <PageHeader eyebrow="Havelsan Rating" title="İstatistikler" />
         <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6"><Empty title="Henüz oyuncu eklenmedi" /></div>
       </>
     );
@@ -56,7 +56,7 @@ export default async function StatsPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Masa Tenisi Rating" title="İstatistik liderleri" />
+      <PageHeader eyebrow="Havelsan Rating" title="İstatistik liderleri" />
       <div className="mx-auto grid max-w-6xl gap-6 px-4 pt-10 sm:px-6 md:grid-cols-2 lg:grid-cols-3">
         <Board title="100 maç barajını aşanlar" rows={hundred.map((p) => ({ id: p.id, name: p.name, value: `${p.matches} maç` }))} />
         <Board title="Son turun yükselenleri" rows={risers.map(([id, v]) => ({ id, name: name.get(id)!, value: <Delta value={v} /> }))} />

@@ -3,13 +3,14 @@
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { emailField } from "@/lib/email";
 import { saveImage } from "@/lib/uploads";
 import type { ActionState } from "@/lib/action-state";
 
 const schema = z
   .object({
     name: z.string().trim().min(3, "Adınızı ve soyadınızı yazın.").max(60),
-    email: z.string().trim().toLowerCase().email("Geçerli bir e-posta girin."),
+    email: emailField("Geçerli bir e-posta girin."),
     phone: z.string().trim().regex(/^[+\d][\d\s()-]{9,19}$/, "Geçerli bir telefon numarası girin."),
     password: z.string().min(8, "Şifre en az 8 karakter olmalı.").max(72),
     password2: z.string(),

@@ -36,7 +36,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
           <Link href="/" className="flex items-center gap-2.5">
             <Logo className="h-8 w-8" />
             <span className="font-display text-sm leading-tight font-bold">
-              Masa Tenisi Rating
+              Havelsan Rating
               <span className="block text-[10px] font-semibold tracking-widest text-ball-300 uppercase">Panel</span>
             </span>
           </Link>

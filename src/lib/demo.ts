@@ -54,9 +54,9 @@ export async function createDemo(): Promise<{ ok: string } | { error: string }> 
       data: { name, rating, matches, wins: Math.floor(matches * (0.3 + rand() * 0.4)), setAverage: Math.floor(rand() * 40) - 20, isDemo: true },
     });
     players.push(p);
-    await db.user.create({ data: { email: `deneme${i + 1}@planet.local`, name, role: "PLAYER", playerId: p.id, passwordHash: hash, isDemo: true } });
+    await db.user.create({ data: { email: `deneme${i + 1}@deneme.local`, name, role: "PLAYER", playerId: p.id, passwordHash: hash, isDemo: true } });
   }
-  await db.user.create({ data: { email: "deneme.sorumlu@planet.local", name: "Deneme Lig Sorumlusu", role: "LEAGUE_MANAGER", passwordHash: hash, isDemo: true } });
+  await db.user.create({ data: { email: "deneme.sorumlu@deneme.local", name: "Deneme Lig Sorumlusu", role: "LEAGUE_MANAGER", passwordHash: hash, isDemo: true } });
 
   const thisMonday = dateFromYmd(nextMonday(new Date(Date.now() - 7 * 86400000)));
   const lastMonday = new Date(thisMonday.getTime() - 7 * 86400000);
@@ -94,7 +94,7 @@ export async function createDemo(): Promise<{ ok: string } | { error: string }> 
     const [a, b] = rand() < 0.65 ? ([3, Math.floor(rand() * 3)] as [number, number]) : score();
     await db.match.update({ where: { id: m.id }, data: { status: m.groupId !== firstGroup && i % 4 === 0 ? "SUBMITTED" : "APPROVED", kind: "NORMAL", setsA: a, setsB: b, submittedById: userOf.get(m.playerAId), submittedAt: new Date(), confirmedAt: new Date() } });
   }
-  return { ok: `Deneme verisi oluşturuldu: ${players.length} oyuncu, 2 hafta. Hesaplar: deneme1@planet.local … deneme24@planet.local ve deneme.sorumlu@planet.local (şifre ${DEMO_PASSWORD}).` };
+  return { ok: `Deneme verisi oluşturuldu: ${players.length} oyuncu, 2 hafta. Hesaplar: deneme1@deneme.local … deneme24@deneme.local ve deneme.sorumlu@deneme.local (şifre ${DEMO_PASSWORD}).` };
 }
 
 export async function deleteDemo(): Promise<{ ok: string } | { error: string }> {
