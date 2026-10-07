@@ -19,7 +19,7 @@ Havelsan içi masa tenisi rating sistemi: oyuncu sıralaması, haftalık gruplar
 5. *Deployments* sekmesinden son kurulumu **Redeploy** edin. Tablolar derleme sırasında otomatik oluşturulur.
 6. Sitede `/kurulum` adresini açıp **süper admin** hesabınızı oluşturun (sadece hiç kullanıcı yokken açılır).
 7. *Panel › Oyuncular* sayfasında Excel’deki “Ad Soyad / Puan” sütunlarını kopyalayıp **Excel’den toplu aktar** kutusuna yapıştırın.
-8. *Panel › Grup düzeni*’nde “Varsayılan grup düzenini yükle” ile 6’şar kişilik A-D gruplarını yükleyin ve gerekirse düzenleyin. Gruplara gün/saat atanmaz.
+8. *Panel › Grup düzeni*’nde “Varsayılan grup düzenini yükle” ile 6’şar kişilik A-D gruplarını yükleyin ve gerekirse düzenleyin. Gruplara gün/saat atanmaz; oyuncu sayısı düzeni aşarsa her hafta yeni gruplar (E, F…) kendiliğinden açılır.
 9. *Panel › Kullanıcılar*’dan lig sorumlusu hesabını, *Panel › Oyuncular*’dan oyuncu hesaplarını açın.
 
 ## Kullanım

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { dateFromYmd, playUntil, playWindowText, weekName } from "../src/lib/schedule";
+import { dateFromYmd, planGroups, playUntil, playWindowText, weekName } from "../src/lib/schedule";
 
 test("hafta Cuma gecesi (Cumartesi 00:00, İstanbul) biter", () => {
   const monday = dateFromYmd("2026-10-05");
@@ -13,4 +13,12 @@ test("hafta adı ve oyun aralığı Pazartesi-Cuma", () => {
   assert.equal(weekName(monday), "5-9 Ekim");
   assert.equal(weekName(dateFromYmd("2026-09-28")), "28 Eylül - 2 Ekim");
   assert.equal(playWindowText(monday), "5 Ekim Pazartesi - 9 Ekim Cuma 23:59");
+});
+
+test("oyuncu sayısı grup düzenini aşarsa yeni gruplar açılır", () => {
+  const code = (i: number) => String.fromCharCode(65 + i);
+  const slots = ["A", "B", "C", "D"].map((c) => ({ code: c, size: 6, place: null }));
+  const plan = planGroups(slots, 31, code);
+  assert.deepEqual(plan.map((p) => `${p.code}${p.take}`), ["A6", "B6", "C6", "D6", "E6", "F1"]);
+  assert.deepEqual(planGroups(slots, 10, code).map((p) => p.take), [6, 4, 0, 0]);
 });

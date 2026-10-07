@@ -23,11 +23,11 @@ export default async function SlotsPage() {
     <>
       <PanelTitle
         title="Grup düzeni"
-        subtitle="Grupların kişi sayısı ve sırası. Her hafta gruplar bu düzene göre, sıra numarası küçük olan grup en yüksek puanlılardan oluşacak şekilde kurulur. Sabit maç günü yoktur: maçlar Pazartesi-Cuma arasında istenen gün oynanır."
+        subtitle="Grupların kişi sayısı ve sırası. Her hafta gruplar bu düzene göre, sıra numarası küçük olan grup en yüksek puanlılardan oluşacak şekilde kurulur. Oyuncu sayısı bu düzeni aşarsa son grubun kişi sayısıyla yeni gruplar (E, F…) otomatik açılır. Sabit maç günü yoktur: maçlar Pazartesi-Cuma arasında istenen gün oynanır."
       />
       {!slots.length && (
         <section className="card mb-6 p-5">
-          <p className="mb-3 text-sm text-ink-soft">Henüz grup tanımlı değil. 6’şar kişilik 4 grupluk (A-D) varsayılan düzeni tek tıkla yükleyebilir, sonra düzenleyebilirsiniz.</p>
+          <p className="mb-3 text-sm text-ink-soft">Henüz grup tanımlı değil. 6’şar kişilik A-D gruplarından oluşan varsayılan düzeni tek tıkla yükleyebilir, sonra düzenleyebilirsiniz. Oyuncu arttıkça yeni gruplar kendiliğinden eklenir.</p>
           <ActionForm action={loadDefaultSlots} submitLabel="Varsayılan grup düzenini yükle" className="space-y-2"><span /></ActionForm>
         </section>
       )}

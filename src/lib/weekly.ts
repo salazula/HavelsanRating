@@ -1,9 +1,9 @@
 import "server-only";
 import { db } from "./db";
-import { computeGroup, fillGroups, roundRobinPairs } from "./rating";
+import { computeGroup, fillGroups, groupCode, roundRobinPairs } from "./rating";
 import { getRules, toStored } from "./rules";
 import { approvedMatches, entryInput } from "./queries";
-import { playUntil } from "./schedule";
+import { planGroups, playUntil } from "./schedule";
 import { postGroupIfComplete } from "./telegram";
 
 /**
@@ -89,7 +89,8 @@ export async function runDueJobs(force = false) {
 }
 
 /**
- * Aktif oyuncuları puan sırasına göre grup düzenindeki gruplara (kişi sayılarına göre) dağıtır; fazlası son gruba.
+ * Aktif oyuncuları puan sırasına göre grup düzenindeki gruplara (kişi sayılarına göre) dağıtır;
+ * düzendeki gruplar yetmezse aynı büyüklükte yeni gruplar açılır.
  * demo: sadece deneme oyuncuları (deneme verisi için) / sadece gerçek oyuncular.
  */
 export async function distribute(roundId: string, weekStart: Date, demo = false) {
@@ -97,11 +98,10 @@ export async function distribute(roundId: string, weekStart: Date, demo = false)
     db.groupSlot.findMany({ orderBy: { order: "asc" } }),
     db.player.findMany({ where: { active: true, isDemo: demo }, orderBy: [{ rating: "desc" }, { setAverage: "desc" }] }),
   ]);
-  if (!slots.length) throw new Error("Önce Grup düzeni sayfasından grupları (gün, saat, kişi sayısı) tanımlayın.");
+  if (!slots.length) throw new Error("Önce Grup düzeni sayfasından grupları (kişi sayısı) tanımlayın.");
   let k = 0;
-  const plan = slots.map((s, i) => {
-    const take = i === slots.length - 1 ? players.length - k : s.size;
-    const chunk = players.slice(k, k + Math.max(0, take));
+  const plan = planGroups(slots, players.length, groupCode).map((s) => {
+    const chunk = players.slice(k, k + s.take);
     k += chunk.length;
     return { s, chunk };
   }).filter((p) => p.chunk.length || !demo);
