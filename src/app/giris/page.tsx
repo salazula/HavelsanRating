@@ -42,7 +42,6 @@ export default async function LoginPage() {
               <input name="password" type="password" required autoComplete="current-password" className="input" />
             </Field>
           </ActionForm>
-          <Link href="/" className="mt-6 block text-center text-sm font-semibold text-table-600">← Siteye dön</Link>
         </div>
       </div>
     </div>

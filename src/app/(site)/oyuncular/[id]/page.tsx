@@ -39,7 +39,7 @@ export default async function PlayerPage({ params }: PageProps<"/oyuncular/[id]"
 
   return (
     <>
-      <PageHeader eyebrow={rank ? `${rank}. sırada` : player.active ? "Oyuncu" : "Pasif oyuncu"} title={player.name} photo={<Avatar name={player.name} photoUrl={player.photoUrl} size="2xl" />}>
+      <PageHeader eyebrow={rank ? `${rank}. sırada` : player.active ? "Oyuncu" : "Pasif oyuncu"} title={player.name} photo={<Avatar name={player.name} size="2xl" />}>
         <dl className="grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
           {[
             ["Rating", player.rating],
@@ -118,7 +118,7 @@ export default async function PlayerPage({ params }: PageProps<"/oyuncular/[id]"
                       {m.kind === "BOTH_ABSENT" ? "KK" : won ? "G" : "M"}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="flex items-center gap-2 truncate"><Avatar name={opp.name} photoUrl={opp.photoUrl} size="xs" /><PlayerLink id={opp.id} name={opp.name} /> <span className="text-ink-soft">({isA ? rb : ra})</span></p>
+                      <p className="flex items-center gap-2 truncate"><Avatar name={opp.name} size="xs" /><PlayerLink id={opp.id} name={opp.name} /> <span className="text-ink-soft">({isA ? rb : ra})</span></p>
                       <p className="text-xs text-ink-soft">{m.group.round.name} · {m.group.code} Grubu · {formatDate(m.confirmedAt)}</p>
                     </div>
                     <span className="font-display font-bold tabular-nums">{m.kind === "BOTH_ABSENT" ? "Hükmen" : `${mine}-${theirs}`}</span>

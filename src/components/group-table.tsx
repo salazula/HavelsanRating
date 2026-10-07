@@ -53,7 +53,7 @@ export function GroupTable({ group, results, showSchedule = true }: { group: Gro
                 <tr key={e.id}>
                   <td className="px-3 py-2 whitespace-nowrap">
                     <span className="mr-2 inline-block w-4 text-xs font-bold text-ink-soft tabular-nums">{i + 1}</span>
-                    <Avatar name={e.player.name} photoUrl={e.player.photoUrl} size="xs" />{" "}
+                    <Avatar name={e.player.name} size="xs" />{" "}
                     <Link href={`/oyuncular/${e.playerId}`} className="font-semibold whitespace-nowrap hover:text-table-600">{e.player.name}</Link>
                     {e.movedFrom && <span className="chip ml-1.5 bg-table-50 text-[10px] text-table-700" title="Grubu tamamlamak için alt gruptan alındı">{e.movedFrom}↑</span>}
                   </td>
@@ -104,7 +104,7 @@ export function AttendanceList({ group }: { group: GroupWithData }) {
       <ul className="divide-y divide-line text-sm">
         {[...group.entries].sort((a, b) => b.ratingBefore - a.ratingBefore).map((e) => (
           <li key={e.id} className="flex items-center gap-2 px-4 py-2">
-            <Avatar name={e.player.name} photoUrl={e.player.photoUrl} size="xs" />
+            <Avatar name={e.player.name} size="xs" />
             <Link href={`/oyuncular/${e.playerId}`} className="flex-1 truncate font-semibold hover:text-table-600">{e.player.name}</Link>
             <span className="tabular-nums text-ink-soft">{e.player.rating}</span>
             <span className={`chip ${e.attendance === "YES" ? "bg-emerald-50 text-emerald-700" : e.attendance === "PENDING" ? "bg-line text-ink-soft" : "bg-rubber-500/10 text-rubber-600"}`}>{attendanceLabel[e.attendance]}</span>

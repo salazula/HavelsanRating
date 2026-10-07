@@ -38,7 +38,7 @@ export function GroupStandings({ group, results, me }: { group: GroupWithData; r
                   <td className="px-3 py-2.5 font-bold text-ink-soft tabular-nums">{i + 1}</td>
                   <td className="px-2 py-2.5">
                     <Link href={`/oyuncular/${e.playerId}`} className="flex min-w-0 items-center gap-2">
-                      <Avatar name={e.player.name} photoUrl={e.player.photoUrl} size="xs" />
+                      <Avatar name={e.player.name} size="xs" />
                       <span className={`truncate ${mine ? "font-bold" : "font-semibold"}`}>{e.player.name}</span>
                       {mine && <span className="chip bg-ball-500 text-[10px] text-white">Sen</span>}
                     </Link>

@@ -5,7 +5,6 @@ import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { isManager, requireUser } from "@/lib/auth";
 import { isValidScore } from "@/lib/rating";
-import { postGroupIfComplete } from "@/lib/telegram";
 import { playUntil } from "@/lib/schedule";
 import type { ActionState } from "@/lib/action-state";
 
@@ -73,7 +72,6 @@ export async function confirmResult(matchId: string, _p: ActionState): Promise<A
   const isOpponent = !!me && (m.playerAId === me || m.playerBId === me) && m.submittedBy?.playerId !== me;
   if (!isOpponent && !isManager(user)) return { error: "Bu sonucu sadece rakip oyuncu veya lig sorumlusu onaylayabilir." };
   await db.match.update({ where: { id: matchId }, data: { status: "APPROVED", confirmedById: user.id, confirmedAt: new Date() } });
-  await postGroupIfComplete(m.groupId).catch(() => null);
   refresh();
   return { ok: "Sonuç onaylandı." };
 }
@@ -103,7 +101,6 @@ export async function setResult(matchId: string, _p: ActionState, fd: FormData):
       where: { id: matchId },
       data: { status: "PENDING", kind: null, setsA: null, setsB: null, setScores: Prisma.DbNull, livePoints: Prisma.DbNull, liveFirstServer: null, liveStartedAt: null, liveUpdatedAt: null, liveById: null, liveVersion: { increment: 1 }, submittedById: null, submittedAt: null, confirmedById: null, confirmedAt: null, disputeNote: null },
     });
-    await db.group.update({ where: { id: m.groupId }, data: { telegramSentAt: null } });
     refresh();
     return { ok: "Sonuç silindi." };
   }
@@ -121,7 +118,6 @@ export async function setResult(matchId: string, _p: ActionState, fd: FormData):
       data: { status: "APPROVED", kind: "NORMAL", setsA: s[0], setsB: s[1], ...(m.setsA === s[0] && m.setsB === s[1] ? {} : { setScores: Prisma.DbNull }), submittedById: m.submittedById ?? user.id, submittedAt: m.submittedAt ?? now, confirmedById: user.id, confirmedAt: now },
     });
   }
-  await postGroupIfComplete(m.groupId).catch(() => null);
   refresh();
   return { ok: "Sonuç kesinleşti." };
 }

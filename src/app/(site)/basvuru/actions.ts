@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { emailField } from "@/lib/email";
-import { saveImage } from "@/lib/uploads";
 import type { ActionState } from "@/lib/action-state";
 
 const schema = z
@@ -41,16 +40,8 @@ export async function submitApplication(_p: ActionState, fd: FormData): Promise<
     return { error: "Şu an çok fazla başvuru var, lütfen biraz sonra tekrar deneyin." };
   }
 
-  let photoUrl: string | null = null;
-  const photo = fd.get("photo");
-  if (photo instanceof File && photo.size) {
-    const saved = await saveImage(photo);
-    if ("error" in saved) return { error: saved.error };
-    photoUrl = saved.url;
-  }
-
   await db.application.create({
-    data: { name: d.name, email: d.email, phone: d.phone, about: d.about ?? null, photoUrl, passwordHash: await bcrypt.hash(d.password, 10) },
+    data: { name: d.name, email: d.email, phone: d.phone, about: d.about ?? null, passwordHash: await bcrypt.hash(d.password, 10) },
   });
   return { ok: "Başvurunuz alındı! Lig sorumlusu onayladığında bu e-posta ve şifreyle giriş yapabileceksiniz." };
 }

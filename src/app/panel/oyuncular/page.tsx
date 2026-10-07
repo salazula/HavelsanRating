@@ -4,8 +4,6 @@ import type { Player } from "@prisma/client";
 import { PanelTitle } from "@/components/panel-title";
 import { ActionForm, Field } from "@/components/forms/action-form";
 import { Avatar } from "@/components/ui";
-import { PhotoUpload } from "@/components/photo-upload";
-import { removePlayerPhoto, uploadPlayerPhoto } from "../foto/actions";
 import { createAccount, createPlayer, deletePlayer, importPlayers, resetPlayerPassword, updatePlayer } from "./actions";
 
 function PlayerFields({ p }: { p?: Player }) {
@@ -44,7 +42,7 @@ export default async function PlayersPage({ searchParams }: PageProps<"/panel/oy
         {players.map((p) => (
           <details key={p.id} className={`px-4 py-3 ${p.active ? "" : "opacity-60"}`}>
             <summary className="flex cursor-pointer list-none flex-wrap items-center gap-3">
-              <Avatar name={p.name} photoUrl={p.photoUrl} size="sm" />
+              <Avatar name={p.name} size="sm" />
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold">
                   {p.name} {!p.active && <span className="chip ml-1 bg-line text-ink-soft">Pasif</span>}
@@ -56,7 +54,6 @@ export default async function PlayersPage({ searchParams }: PageProps<"/panel/oy
               <span className="font-display text-lg font-bold tabular-nums">{p.rating}</span>
             </summary>
             <div className="mt-4 space-y-5">
-              <PhotoUpload name={p.name} photoUrl={p.photoUrl} upload={uploadPlayerPhoto.bind(null, p.id)} remove={removePlayerPhoto.bind(null, p.id)} />
               <ActionForm action={updatePlayer.bind(null, p.id)} submitLabel="Kaydet">
                 <PlayerFields p={p} />
                 <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="active" defaultChecked={p.active} /> Aktif (yeni turlarda gruplara alınır)</label>

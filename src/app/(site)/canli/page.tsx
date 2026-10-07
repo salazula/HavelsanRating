@@ -35,7 +35,7 @@ export default async function LivePage() {
                       const p = s === "A" ? m.playerA : m.playerB;
                       return (
                         <div key={s} className="flex items-center gap-3 px-5 py-3">
-                          <Avatar name={p.name} photoUrl={p.photoUrl} size="sm" />
+                          <Avatar name={p.name} size="sm" />
                           <span className="min-w-0 flex-1 truncate font-semibold">
                             {p.name} {l.server === s && <span className="ml-1 inline-block h-2.5 w-2.5 rounded-full bg-ball-500 align-middle" title="Servis" />}
                           </span>

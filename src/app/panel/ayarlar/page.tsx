@@ -1,16 +1,14 @@
 import { requireUser } from "@/lib/auth";
 import { DEMO_PASSWORD, demoExists } from "@/lib/demo";
 import { PILOT_MANAGER, PILOT_PASSWORD, PILOT_PLAYERS, pilotAccounts } from "@/lib/pilot";
-import { telegramConfigured } from "@/lib/telegram";
 import { PanelTitle } from "@/components/panel-title";
 import { ActionForm } from "@/components/forms/action-form";
 import { Notice } from "@/components/ui";
-import { createDemoAction, createPilotAction, deleteDemoAction, deletePilotAction, sendSampleReport, testTelegram } from "./actions";
+import { createDemoAction, createPilotAction, deleteDemoAction, deletePilotAction } from "./actions";
 
 export default async function SettingsPage() {
   await requireUser(["SUPER_ADMIN"]);
   const demo = await demoExists();
-  const tg = telegramConfigured();
   const pilot = await pilotAccounts();
   const pilotMissing = PILOT_PLAYERS.length + 1 - pilot.length;
   return (
@@ -22,7 +20,7 @@ export default async function SettingsPage() {
           <p className="mt-1 mb-4 text-sm text-ink-soft">
             Sistemi gerçek veriye dokunmadan denemek için 24 deneme oyuncusu, oyuncu hesapları, kapanmış bir hafta ve sonuçlarının bir kısmı girilmiş devam eden bir hafta oluşturur.
             Hesaplar: <code>deneme1@deneme.local</code> … <code>deneme24@deneme.local</code> ve <code>deneme.sorumlu@deneme.local</code>, şifre <code>{DEMO_PASSWORD}</code>.
-            Deneme haftaları Telegram kanalına gönderilmez. Deneme verisi açıkken gerçek hafta oluşturulamaz.
+            Deneme verisi açıkken gerçek hafta oluşturulamaz.
           </p>
           {demo && <div className="mb-4"><Notice tone="info">Deneme verisi açık.</Notice></div>}
           {/* Tek form: oluşturup silerken sonuç mesajı kaybolmasın */}
@@ -78,20 +76,6 @@ export default async function SettingsPage() {
           >
             <span />
           </ActionForm>
-        </section>
-        <section className="card p-5">
-          <h2 className="font-bold">Telegram</h2>
-          <p className="mt-1 mb-4 text-sm text-ink-soft">
-            Bir grubun tüm maçları kesinleşince maç sonuçları ve grup sıralaması kanala gönderilir. Vercel’de <code>TELEGRAM_BOT_TOKEN</code> ve <code>TELEGRAM_CHAT_ID</code> ortam değişkenlerini tanımlayın; bot kanala yönetici olarak eklenmeli.
-          </p>
-          {tg ? (
-            <div className="flex flex-wrap gap-3">
-              <ActionForm action={testTelegram} submitLabel="Deneme mesajı gönder" submitClass="btn-ghost" className="space-y-2"><span /></ActionForm>
-              <ActionForm action={sendSampleReport} submitLabel="Örnek grup sonucu gönder" submitClass="btn-ghost" className="space-y-2" confirm="Uydurma isimlerle örnek bir grup sonucu kanala gönderilsin mi?"><span /></ActionForm>
-            </div>
-          ) : (
-            <Notice tone="info">Telegram ayarları yapılmamış.</Notice>
-          )}
         </section>
       </div>
     </>

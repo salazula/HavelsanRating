@@ -89,7 +89,7 @@ export async function createDemo(): Promise<{ ok: string } | { error: string }> 
   const firstGroup = curMatches[0]?.groupId;
   const userOf = new Map((await db.user.findMany({ where: { isDemo: true, playerId: { not: null } } })).map((u) => [u.playerId!, u.id]));
   for (const [i, m] of curMatches.entries()) {
-    // İlk grup tamamen bitsin (yıldız ve Telegram örneği), diğerlerinde yaklaşık yarısı
+    // İlk grup tamamen bitsin (haftanın yıldızı örneği), diğerlerinde yaklaşık yarısı
     if (m.groupId !== firstGroup && i % 2) continue;
     const [a, b] = rand() < 0.65 ? ([3, Math.floor(rand() * 3)] as [number, number]) : score();
     await db.match.update({ where: { id: m.id }, data: { status: m.groupId !== firstGroup && i % 4 === 0 ? "SUBMITTED" : "APPROVED", kind: "NORMAL", setsA: a, setsB: b, submittedById: userOf.get(m.playerAId), submittedAt: new Date(), confirmedAt: new Date() } });

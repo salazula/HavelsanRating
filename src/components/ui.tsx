@@ -12,12 +12,9 @@ export function initials(name: string) {
     .join("");
 }
 
-export function Avatar({ name, photoUrl, size = "md" }: { name: string; photoUrl?: string | null; size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" }) {
+/** Baş harfler (profil fotoğrafı tutulmuyor) */
+export function Avatar({ name, size = "md" }: { name: string; size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" }) {
   const s = { xs: "h-6 w-6 text-[9px]", sm: "h-7 w-7 text-[10px]", md: "h-10 w-10 text-xs", lg: "h-14 w-14 text-base", xl: "h-20 w-20 text-2xl", "2xl": "h-28 w-28 text-3xl" }[size];
-  if (photoUrl) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={photoUrl} alt={name} className={`${s} inline-block shrink-0 rounded-full object-cover align-middle ring-2 ring-white`} />;
-  }
   return (
     <span className={`${s} inline-grid shrink-0 place-items-center rounded-full bg-table-100 align-middle font-bold text-table-700 ring-2 ring-white`} aria-hidden>
       {initials(name)}

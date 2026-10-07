@@ -5,7 +5,6 @@ import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { isManager, requireUser } from "@/lib/auth";
 import { deriveLive, parsePoints, type Side } from "@/lib/live";
-import { postGroupIfComplete } from "@/lib/telegram";
 
 export type LiveView = {
   points: Side[];
@@ -113,8 +112,6 @@ export async function livePoint(matchId: string, side: Side | null, version: num
   });
   const fresh = (await load(matchId))!;
   if (!res.count) return { view: view(fresh), error: "conflict" };
-  if (live.finished && manager) await postGroupIfComplete(m.groupId).catch(() => null);
-  if (before.finished && !live.finished) await db.group.update({ where: { id: m.groupId }, data: { telegramSentAt: null } });
   refresh();
   return { view: view(fresh) };
 }
