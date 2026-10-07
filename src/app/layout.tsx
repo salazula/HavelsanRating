@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   appleWebApp: { title: "Havelsan Rating", statusBarStyle: "black" },
 };
 
-export const viewport: Viewport = { themeColor: "#0a1f42" };
+export const viewport: Viewport = { themeColor: "#070b14" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

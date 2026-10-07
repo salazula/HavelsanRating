@@ -18,8 +18,8 @@
   --color-table-500: #2f5ea8;
   --color-table-600: #1e4b92;
   --color-table-700: #173c78;
-  --color-table-800: #102c5a;
-  --color-table-900: #0a1f42;
+  --color-table-800: #121c30;
+  --color-table-900: #070b14;
 
   /* Kurumsal mavi: vurgu rengi (tarihsel adı "ball") */
   --color-ball-300: #9cc8f2;
@@ -57,15 +57,16 @@ h1, h2, h3, .font-display {
   letter-spacing: -0.015em;
 }
 
-/* Kurumsal lacivert bant: başlık bantları, panel kenar çubuğu ve giriş sayfası */
+/* havelsan.com gibi koyu (siyaha yakın) bant: başlık bantları, panel kenar çubuğu ve giriş sayfası */
 .cosmos {
   background-color: var(--color-table-900);
   background-image:
     linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px),
     linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
+    radial-gradient(900px 420px at 85% 0%, rgba(26, 111, 196, .28), transparent 65%),
     linear-gradient(160deg, var(--color-table-800) 0%, var(--color-table-900) 60%);
-  background-size: 48px 48px, 48px 48px, auto;
-  background-position: -1px -1px, -1px -1px, 0 0;
+  background-size: 48px 48px, 48px 48px, auto, auto;
+  background-position: -1px -1px, -1px -1px, 0 0, 0 0;
 }
 
 /* Eski yıldız katmanları: kurumsal görünümde kullanılmıyor */
