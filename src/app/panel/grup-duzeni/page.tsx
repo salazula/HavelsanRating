@@ -35,7 +35,7 @@ export default async function SlotsPage() {
         {slots.map((s) => (
           <details key={s.id} className="card px-4 py-3">
             <summary className="flex cursor-pointer list-none flex-wrap items-center gap-3">
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-table-600 font-display font-bold text-white">{s.code}</span>
+              <span className="grid h-9 w-9 place-items-center rounded-md bg-table-600 font-display font-bold text-white">{s.code}</span>
               <span className="flex-1 text-sm">
                 <b>Pazartesi-Cuma</b>{s.place ? ` · ${s.place}` : ""}
               </span>

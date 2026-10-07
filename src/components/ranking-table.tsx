@@ -29,7 +29,7 @@ export function RankingTable({ rows, changes, compact }: { rows: Row[]; changes:
             {rows.map((p) => (
               <tr key={p.id} className="transition hover:bg-table-50/50">
                 <td className="px-3 py-2.5 text-center">
-                  <span className={`inline-grid h-7 w-7 place-items-center rounded-full text-xs font-bold tabular-nums ${p.rank <= 3 ? "bg-ball-500 text-table-900" : "text-ink-soft"}`}>{p.rank}</span>
+                  <span className={`inline-grid h-7 w-7 place-items-center rounded-md text-xs font-bold tabular-nums ${p.rank <= 3 ? "bg-ball-500 text-white" : "text-ink-soft"}`}>{p.rank}</span>
                 </td>
                 <td className="px-3 py-2.5">
                   <Link href={`/oyuncular/${p.id}`} className="flex items-center gap-2.5 font-semibold hover:text-table-600">

@@ -1,202 +1,84 @@
-/* Havelsan temalı SVG çizimler: masa tenisi topu bir gezegen, raketler onun uyduları. Harici görsel gerektirmez. */
+/* Havelsan kurumsal görünümü için SVG çizimler: teknik çizim üslubunda masa tenisi masası. Harici görsel gerektirmez. */
 
-/** Halka yolu (animateMotion için): merkez, yarıçaplar */
-function ellipsePath(cx: number, cy: number, rx: number, ry: number) {
-  return `M${cx - rx},${cy} a${rx},${ry} 0 1,0 ${rx * 2},0 a${rx},${ry} 0 1,0 ${-rx * 2},0`;
-}
-
-/** Top-gezegen: beyaz küre, dikiş çizgisi ve parıltı */
-function BallPlanet({ id, cx, cy, r }: { id: string; cx: number; cy: number; r: number }) {
-  return (
-    <g>
-      <defs>
-        <radialGradient id={`${id}-ball`} cx=".34" cy=".3" r=".8">
-          <stop offset="0" stopColor="#ffffff" />
-          <stop offset=".35" stopColor="#f3f6fa" />
-          <stop offset=".8" stopColor="#c9d4e2" />
-          <stop offset="1" stopColor="#8a9bb3" />
-        </radialGradient>
-        <radialGradient id={`${id}-night`} cx=".3" cy=".25" r=".95">
-          <stop offset=".55" stopColor="#0a2350" stopOpacity="0" />
-          <stop offset="1" stopColor="#0a2350" stopOpacity=".45" />
-        </radialGradient>
-        <clipPath id={`${id}-clip`}>
-          <circle cx={cx} cy={cy} r={r} />
-        </clipPath>
-      </defs>
-      <circle cx={cx} cy={cy} r={r} fill={`url(#${id}-ball)`} />
-      <g clipPath={`url(#${id}-clip)`}>
-        {/* Topun dikişi */}
-        <path
-          d={`M${cx - r * 1.1},${cy + r * 0.15} C${cx - r * 0.4},${cy - r * 0.35} ${cx + r * 0.4},${cy + r * 0.55} ${cx + r * 1.1},${cy + r * 0.05}`}
-          fill="none"
-          stroke="#5b8fcf"
-          strokeOpacity=".35"
-          strokeWidth={Math.max(1, r * 0.035)}
-        />
-        {/* Gece tarafı */}
-        <circle cx={cx} cy={cy} r={r} fill={`url(#${id}-night)`} />
-      </g>
-    </g>
-  );
-}
-
+/** Lacivert kare içinde "H" ve masa tenisi topu */
 export function Logo({ className = "h-9 w-9" }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 48" className={className} aria-hidden>
-      <defs>
-        <linearGradient id="lg-ring" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#b5cde9" />
-          <stop offset="1" stopColor="#5b8fcf" />
-        </linearGradient>
-      </defs>
-      <g transform="rotate(-22 24 24)">
-        {/* Halkanın arka yarısı */}
-        <path d="M3 24 a21 6.5 0 0 1 42 0" fill="none" stroke="url(#lg-ring)" strokeWidth="2.6" opacity=".7" />
-      </g>
-      <BallPlanet id="lg" cx={24} cy={24} r={12} />
-      {/* Havelsan "H" harfi */}
-      <path d="M19.5 18.5h2.6v4.2h3.8v-4.2h2.6v11h-2.6v-4.4h-3.8v4.4h-2.6z" fill="#081a36" />
-      <g transform="rotate(-22 24 24)">
-        {/* Halkanın ön yarısı */}
-        <path d="M3 24 a21 6.5 0 0 0 42 0" fill="none" stroke="url(#lg-ring)" strokeWidth="2.6" strokeLinecap="round" />
-      </g>
-      <circle cx="40" cy="8" r="3.2" fill="#fb4d6d" />
+      <rect x="1" y="1" width="46" height="46" rx="9" fill="#1e4b92" stroke="#fff" strokeOpacity=".22" strokeWidth="1.5" />
+      <path d="M13 12h5.5v9.5h11V12H35v24h-5.5V26.5h-11V36H13z" fill="#fff" />
+      <circle cx="38.5" cy="9.5" r="4.5" fill="#4b9de6" stroke="#1e4b92" strokeWidth="2" />
     </svg>
   );
 }
 
-/** Küçük raket silüeti (uydu) */
-function PaddleMoon({ fill, scale = 1 }: { fill: string; scale?: number }) {
+/** Perspektif masa: üst yüzey, file, orta çizgi ve ön kalınlık */
+function Table({ stroke = "#fff", strokeOpacity = 0.6, surface = 0.05, legs = true }: { stroke?: string; strokeOpacity?: number; surface?: number; legs?: boolean }) {
   return (
-    <g transform={`scale(${scale})`}>
-      <rect x="-3.5" y="9" width="7" height="15" rx="3" fill="#d9a066" />
-      <circle r="13" fill="#f3d3a8" />
-      <circle r="11.5" fill={fill} />
-      <ellipse cx="-4" cy="-5" rx="5" ry="3" fill="#fff" opacity=".18" transform="rotate(-30 -4 -5)" />
+    <g fill="none" stroke={stroke} strokeOpacity={strokeOpacity} strokeWidth="1.5" strokeLinejoin="round">
+      {legs && (
+        <g strokeOpacity={strokeOpacity * 0.6}>
+          <path d="M112 312v70M528 312v70M196 158v52M444 158v52" />
+          <path d="M112 352h416" strokeDasharray="2 6" />
+        </g>
+      )}
+      <path d="M170 150h300l90 150H80z" fill={stroke} fillOpacity={surface} />
+      <path d="M80 300h480v12H80z" fill={stroke} fillOpacity={surface * 2} />
+      <path d="M320 150v150" strokeOpacity={strokeOpacity * 0.7} />
+      <path d="M125 225h390" />
+      <path d="M125 225v-24h390v24" fill={stroke} fillOpacity={surface * 2.5} />
+      <path d="M125 213h390" strokeOpacity={strokeOpacity * 0.5} strokeDasharray="3 4" />
     </g>
   );
 }
 
+/** Ana sayfa ve giriş sayfası: ölçü çizgileriyle teknik çizim masa ve top yörüngesi */
 export function HeroArt({ className = "" }: { className?: string }) {
-  const cx = 320;
-  const cy = 230;
-  const orbits = [
-    { rx: 290, ry: 98, dur: "38s" },
-    { rx: 220, ry: 74, dur: "26s" },
-  ];
+  const label = { fill: "#b7c9e3", fontSize: 13, fontFamily: "var(--font-plex-mono), monospace", letterSpacing: ".04em" };
   return (
-    <svg viewBox="0 0 640 460" className={className} role="img" aria-label="Masa tenisi topundan bir gezegen ve onun yörüngesinde dönen raketler">
-      <defs>
-        <radialGradient id="ha-glow" cx=".5" cy=".5" r=".5">
-          <stop offset="0" stopColor="#1aa7e0" stopOpacity=".45" />
-          <stop offset=".6" stopColor="#2f6db8" stopOpacity=".18" />
-          <stop offset="1" stopColor="#2f6db8" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="ha-ring" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#dbe7f5" stopOpacity=".2" />
-          <stop offset=".5" stopColor="#9bdcf5" stopOpacity=".95" />
-          <stop offset="1" stopColor="#b5cde9" stopOpacity=".3" />
-        </linearGradient>
-        <linearGradient id="ha-red" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#ff6b86" />
-          <stop offset="1" stopColor="#b3113a" />
-        </linearGradient>
-        <linearGradient id="ha-black" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#475569" />
-          <stop offset="1" stopColor="#0e1a2e" />
-        </linearGradient>
-      </defs>
+    <svg viewBox="0 0 640 460" className={className} role="img" aria-label="Teknik çizim üslubunda masa tenisi masası ve topun yörüngesi">
+      <Table />
 
-      <circle cx={cx} cy={cy} r="220" fill="url(#ha-glow)" />
+      {/* Ölçü çizgileri */}
+      <g stroke="#9cc8f2" strokeOpacity=".7" strokeWidth="1">
+        <path d="M80 412h480M80 404v16M560 404v16" />
+        <path d="M44 300l90-150M38 296l12 8M128 146l12 8" />
+      </g>
+      <text x="320" y="436" textAnchor="middle" {...label}>152,5 cm</text>
+      <text x="0" y="0" textAnchor="middle" transform="translate(68 214) rotate(-59)" {...label}>274 cm</text>
+      <text x="572" y="230" {...label}>15,25 cm</text>
+      <path d="M560 201v24M554 201h12M554 225h12" stroke="#9cc8f2" strokeOpacity=".7" strokeWidth="1" />
 
-      {/* Yörüngeler ve uydular */}
-      <g transform={`rotate(-12 ${cx} ${cy})`}>
-        {orbits.map((o, i) => (
-          <ellipse key={i} cx={cx} cy={cy} rx={o.rx} ry={o.ry} fill="none" stroke="#b5cde9" strokeOpacity=".35" strokeWidth="1.5" strokeDasharray="3 9" />
-        ))}
-        <g>
-          <PaddleMoon fill="url(#ha-red)" scale={1.6} />
-          <animateMotion dur={orbits[0]!.dur} repeatCount="indefinite" path={ellipsePath(cx, cy, orbits[0]!.rx, orbits[0]!.ry)} />
-        </g>
-        <g>
-          <PaddleMoon fill="url(#ha-black)" scale={1.15} />
-          <animateMotion dur={orbits[1]!.dur} repeatCount="indefinite" begin="-9s" path={ellipsePath(cx, cy, orbits[1]!.rx, orbits[1]!.ry)} />
-        </g>
-        <g>
-          <circle r="5" fill="#5b8fcf" />
-          <animateMotion dur={orbits[1]!.dur} repeatCount="indefinite" begin="-20s" path={ellipsePath(cx, cy, orbits[1]!.rx, orbits[1]!.ry)} />
-        </g>
-      </g>
+      {/* Topun yörüngesi */}
+      <path d="M430 268 Q 360 70 248 182" fill="none" stroke="#4b9de6" strokeWidth="2" strokeDasharray="5 6" />
+      <circle cx="430" cy="268" r="3" fill="#4b9de6" />
+      <circle cx="248" cy="182" r="9" fill="#fff" />
+      <circle cx="245" cy="179" r="3" fill="#fff" stroke="#b7c9e3" strokeOpacity=".8" />
 
-      {/* Satürn halkası: arka yarı, gezegen, ön yarı */}
-      <g transform={`rotate(-12 ${cx} ${cy})`}>
-        <path d={`M${cx - 165},${cy} a165,36 0 0 1 330,0`} fill="none" stroke="url(#ha-ring)" strokeWidth="10" opacity=".55" />
+      {/* Köşe işaretleri */}
+      <g stroke="#fff" strokeOpacity=".35" strokeWidth="1.5" fill="none">
+        <path d="M12 36V12h24M628 36V12h-24M12 424v24h24M628 424v24h-24" />
       </g>
-      <BallPlanet id="ha" cx={cx} cy={cy} r={96} />
-      <g transform={`rotate(-12 ${cx} ${cy})`}>
-        <path d={`M${cx - 165},${cy} a165,36 0 0 0 330,0`} fill="none" stroke="url(#ha-ring)" strokeWidth="10" strokeLinecap="round" />
-        <path d={`M${cx - 140},${cy} a140,28 0 0 0 280,0`} fill="none" stroke="#fff" strokeOpacity=".35" strokeWidth="2" />
-      </g>
-
-      {/* Puan rozetleri */}
-      <g className="animate-bounce-ball">
-        <rect x="452" y="96" width="62" height="30" rx="15" fill="#10b981" />
-        <text x="483" y="116" textAnchor="middle" fontSize="15" fontWeight="700" fill="#fff" fontFamily="var(--font-grotesk), sans-serif">+12</text>
-      </g>
-      <g className="animate-bounce-ball" style={{ animationDelay: "-1.2s" }}>
-        <rect x="118" y="318" width="54" height="28" rx="14" fill="#fff" fillOpacity=".12" stroke="#fff" strokeOpacity=".3" />
-        <text x="145" y="337" textAnchor="middle" fontSize="14" fontWeight="700" fill="#dbe7f5" fontFamily="var(--font-grotesk), sans-serif">1798</text>
-      </g>
-
-      {/* Parlayan yıldızlar */}
-      {[
-        [90, 80, 2.2],
-        [560, 60, 1.8],
-        [600, 360, 2.4],
-        [40, 300, 1.6],
-        [250, 40, 1.4],
-        [420, 420, 1.8],
-      ].map(([x, y, r], i) => (
-        <circle key={i} cx={x} cy={y} r={r} fill="#fff" className="animate-twinkle" style={{ animationDelay: `${-i * 0.7}s` }} />
-      ))}
     </svg>
   );
 }
 
-/** Başlık bantlarının sağına yerleşen küçük gezegen */
-export function OrbitMini({ className = "" }: { className?: string }) {
+/** Başlık bantlarının sağına yerleşen küçük masa çizimi */
+export function HeaderArt({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 220 160" className={className} aria-hidden>
-      <defs>
-        <linearGradient id="om-ring" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#b5cde9" stopOpacity=".3" />
-          <stop offset=".5" stopColor="#9bdcf5" />
-          <stop offset="1" stopColor="#b5cde9" stopOpacity=".4" />
-        </linearGradient>
-      </defs>
-      <ellipse cx="110" cy="80" rx="100" ry="30" fill="none" stroke="#b5cde9" strokeOpacity=".35" strokeDasharray="2 7" transform="rotate(-14 110 80)" />
-      <g transform="rotate(-14 110 80)">
-        <path d="M45 80 a65 14 0 0 1 130 0" fill="none" stroke="url(#om-ring)" strokeWidth="6" opacity=".55" />
-      </g>
-      <BallPlanet id="om" cx={110} cy={80} r={38} />
-      <g transform="rotate(-14 110 80)">
-        <path d="M45 80 a65 14 0 0 0 130 0" fill="none" stroke="url(#om-ring)" strokeWidth="6" strokeLinecap="round" />
-      </g>
-      <circle cx="196" cy="54" r="7" fill="#fb4d6d" />
-      <circle cx="26" cy="112" r="4" fill="#5b8fcf" />
+    <svg viewBox="60 130 520 200" className={className} aria-hidden>
+      <Table legs={false} strokeOpacity={0.45} surface={0.04} />
+      <path d="M430 268 Q 360 120 248 190" fill="none" stroke="#4b9de6" strokeWidth="2.5" strokeDasharray="6 7" />
+      <circle cx="248" cy="190" r="10" fill="#fff" />
     </svg>
   );
 }
 
-/** Boş durumlar için yörüngede küçük bir gezegen */
-export function EmptyArt({ className = "h-24 w-24" }: { className?: string }) {
+/** Boş durumlar için açık renkli masa çizimi */
+export function EmptyArt({ className = "h-16 w-28" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 120 120" className={className} aria-hidden>
-      <ellipse cx="60" cy="62" rx="50" ry="18" fill="none" stroke="#b5cde9" strokeWidth="2" strokeDasharray="3 6" transform="rotate(-14 60 62)" />
-      <BallPlanet id="ea" cx={60} cy={60} r={20} />
-      <circle cx="104" cy="44" r="5" fill="#fb4d6d" />
-      <circle cx="18" cy="84" r="3" fill="#5b8fcf" />
+    <svg viewBox="60 130 520 200" className={className} aria-hidden>
+      <Table legs={false} stroke="#2f5ea8" strokeOpacity={0.45} surface={0.05} />
+      <circle cx="400" cy="190" r="12" fill="#1a6fc4" />
     </svg>
   );
 }

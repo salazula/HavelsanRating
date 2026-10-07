@@ -30,19 +30,18 @@ export default async function HomePage() {
   return (
     <>
       <section className="cosmos relative overflow-hidden text-white">
-        <div className="stars-far absolute inset-0 opacity-70" />
-        <div className="stars absolute inset-0 animate-twinkle" />
-                <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:py-20">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:py-20">
           <div>
             <span className="chip bg-white/10 text-ball-300 ring-1 ring-white/15">
-              <span className="h-1.5 w-1.5 rounded-full bg-ball-400" />
+              <span className="h-1.5 w-1.5 rounded-sm bg-ball-400" />
               {round ? `${round.name} · ${{ ATTENDANCE: "katılım bildirimi sürüyor", OPEN: "maçlar oynanıyor", CLOSED: "tamamlandı", DRAFT: "" }[round.status]}` : "İlk hafta yakında"}
             </span>
-            <h1 className="mt-5 text-4xl leading-[1.05] font-extrabold sm:text-5xl lg:text-6xl">
-              Her maç <span className="text-ball-400">yörüngeni</span> değiştirir.
+            <p className="mt-6 text-sm font-semibold tracking-[0.2em] text-ball-300 uppercase">Havelsan · Kurum içi lig</p>
+            <h1 className="mt-2 text-4xl leading-[1.1] font-bold sm:text-5xl">
+              Masa Tenisi Ligi
             </h1>
             <p className="mt-5 max-w-xl text-lg text-table-100">
-              Havelsan masa tenisi rating sistemi: haftalık gruplar, puan farkına göre hesaplanan rating, güncel sıralama ve istatistikler.
+              Haftalık gruplar, şeffaf puan hesabı ve güncel sıralama. Maçlar Pazartesi-Cuma arasında, size uyan gün oynanır.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/siralama" className="btn-accent px-5 py-3 text-base">Sıralama</Link>
@@ -54,14 +53,14 @@ export default async function HomePage() {
                 ["Oynanan maç", matchCount],
                 ["Bu hafta", totalMatches ? `${doneMatches}/${totalMatches}` : "–"],
               ].map(([k, v]) => (
-                <div key={k} className="rounded-2xl bg-white/8 px-4 py-3 ring-1 ring-white/10">
+                <div key={k} className="border-l-2 border-ball-400 bg-white/5 px-4 py-3">
                   <dt className="text-xs font-semibold text-table-200">{k}</dt>
                   <dd className="font-display text-2xl font-bold sm:text-3xl">{v}</dd>
                 </div>
               ))}
             </dl>
           </div>
-          <HeroArt className="mx-auto w-full max-w-xl drop-shadow-2xl" />
+          <HeroArt className="mx-auto w-full max-w-xl" />
         </div>
       </section>
 

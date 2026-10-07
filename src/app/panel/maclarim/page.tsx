@@ -122,7 +122,7 @@ export default async function MyMatches() {
                   <MatchStatusChip status={m.status} />
                 </div>
                 {weekOpen && m.status === "PENDING" && (
-                  <Link href={`/skor/${m.id}`} className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-table-900 px-4 py-3 text-sm font-semibold text-white hover:bg-table-800">
+                  <Link href={`/skor/${m.id}`} className="mt-3 flex items-center justify-between gap-3 rounded-lg bg-table-900 px-4 py-3 text-sm font-semibold text-white hover:bg-table-800">
                     <span className="flex items-center gap-2">
                       <span className={`h-2 w-2 rounded-full ${m.liveStartedAt ? "animate-pulse bg-rubber-500" : "bg-ball-400"}`} />
                       {m.liveStartedAt ? "Canlı skor sürüyor, skorborda dön" : "Masada canlı skor tut"}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { MatchStatus, RoundStatus } from "@prisma/client";
 import { attendanceLabel, matchStatusLabel, roundStatusLabel, signed } from "@/lib/labels";
-import { OrbitMini, EmptyArt } from "./art";
+import { HeaderArt, EmptyArt } from "./art";
 
 export function initials(name: string) {
   return name
@@ -36,7 +36,7 @@ export function MatchStatusChip({ status }: { status: MatchStatus }) {
 }
 
 export function RoundStatusChip({ status }: { status: RoundStatus }) {
-  const cls = { DRAFT: "bg-line text-ink-soft", ATTENDANCE: "bg-amber-50 text-amber-700", OPEN: "bg-ball-500 text-table-900", CLOSED: "bg-emerald-50 text-emerald-700" }[status];
+  const cls = { DRAFT: "bg-line text-ink-soft", ATTENDANCE: "bg-amber-50 text-amber-700", OPEN: "bg-ball-500 text-white", CLOSED: "bg-emerald-50 text-emerald-700" }[status];
   return <span className={`chip ${cls}`}>{roundStatusLabel[status]}</span>;
 }
 
@@ -70,19 +70,17 @@ export function PageHeader({
 }) {
   return (
     <section className="cosmos relative overflow-hidden text-white">
-      <div className="stars-far absolute inset-0 opacity-70" />
-      <div className="stars absolute inset-0 animate-twinkle" />
       <div className="relative mx-auto flex max-w-6xl items-end justify-between gap-6 px-4 pt-10 pb-12 sm:px-6">
         <div className="flex min-w-0 items-center gap-6">
           {photo && <div className="hidden shrink-0 sm:block">{photo}</div>}
           <div className="min-w-0">
-          {eyebrow && <p className="mb-2 text-xs font-bold tracking-[0.2em] text-ball-300 uppercase">{eyebrow}</p>}
+          {eyebrow && <p className="mb-2 text-xs font-semibold tracking-[0.18em] text-ball-300 uppercase">{eyebrow}</p>}
           <h1 className="text-3xl font-bold sm:text-4xl">{title}</h1>
           {subtitle && <div className="mt-2 max-w-2xl text-table-100">{subtitle}</div>}
           {children && <div className="mt-5">{children}</div>}
           </div>
         </div>
-        <OrbitMini className="hidden h-32 w-44 shrink-0 drop-shadow-xl md:block" />
+        <HeaderArt className="hidden h-28 w-56 shrink-0 md:block" />
       </div>
     </section>
   );
@@ -92,7 +90,7 @@ export function SectionTitle({ title, href, linkText = "Tümü" }: { title: stri
   return (
     <div className="mb-4 flex items-center justify-between">
       <h2 className="flex items-center gap-2.5 text-xl font-bold">
-        <span className="h-2.5 w-2.5 rounded-full bg-ball-500 shadow-[0_0_0_4px] shadow-ball-500/20" />
+        <span className="h-5 w-1 rounded-sm bg-ball-500" />
         {title}
       </h2>
       {href && (

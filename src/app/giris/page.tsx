@@ -15,8 +15,6 @@ export default async function LoginPage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="cosmos relative hidden overflow-hidden p-12 text-white lg:flex lg:flex-col">
-        <div className="stars-far absolute inset-0 opacity-70" />
-        <div className="stars absolute inset-0 animate-twinkle" />
         <Link href="/" className="relative flex items-center gap-2.5">
           <Logo />
           <span className="font-display font-bold">Havelsan Rating</span>

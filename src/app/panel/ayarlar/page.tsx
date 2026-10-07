@@ -44,7 +44,7 @@ export default async function SettingsPage() {
             Pilot bitince “Pilot verisini sil” oyuncuları, hesaplarını ve yalnızca pilot oyuncuların oynadığı haftaları topluca kaldırır.
           </p>
           {pilot.length > 0 && (
-            <div className="mb-4 overflow-x-auto rounded-2xl border border-line">
+            <div className="mb-4 overflow-x-auto rounded-lg border border-line">
               <table className="w-full text-sm">
                 <thead className="bg-table-50 text-left text-xs text-ink-soft">
                   <tr><th className="px-3 py-2">Oyuncu</th><th className="px-3 py-2">E-posta</th><th className="px-3 py-2">Telefon</th><th className="px-3 py-2 text-right">Puan</th></tr>

@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
-const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin", "latin-ext"] });
-const grotesk = Space_Grotesk({ variable: "--font-grotesk", subsets: ["latin", "latin-ext"] });
+const plex = IBM_Plex_Sans({ variable: "--font-plex", subsets: ["latin", "latin-ext"], weight: ["400", "500", "600", "700"] });
+const plexMono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin", "latin-ext"], weight: ["400", "500"] });
 
 export const metadata: Metadata = {
   title: { default: "Havelsan Rating", template: "%s · Havelsan Rating" },
@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   appleWebApp: { title: "Havelsan Rating", statusBarStyle: "black" },
 };
 
-export const viewport: Viewport = { themeColor: "#081a36" };
+export const viewport: Viewport = { themeColor: "#0a1f42" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="tr" className={`${manrope.variable} ${grotesk.variable} h-full antialiased`}>
+    <html lang="tr" className={`${plex.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         {children}
         <Analytics />

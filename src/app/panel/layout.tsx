@@ -30,8 +30,6 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[260px_1fr]">
       <aside className="cosmos relative text-white lg:sticky lg:top-0 lg:h-screen">
-        <div className="stars-far absolute inset-0 opacity-70" />
-        <div className="stars absolute inset-0 animate-twinkle" />
         <div className="relative flex h-full flex-col gap-6 p-4 lg:p-5">
           <Link href="/" className="flex items-center gap-2.5">
             <Logo className="h-8 w-8" />
@@ -41,7 +39,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
             </span>
           </Link>
           <PanelNav links={links} />
-          <div className="mt-auto hidden rounded-2xl bg-white/10 p-3 ring-1 ring-white/10 lg:block">
+          <div className="mt-auto hidden rounded-lg bg-white/10 p-3 ring-1 ring-white/10 lg:block">
             <p className="truncate text-sm font-bold">{user.name}</p>
             <p className="truncate text-xs text-table-100">{roleLabel[user.role]}{user.player && user.role !== "PLAYER" ? " · Oyuncu" : ""}</p>
             <form action={logout} className="mt-3">

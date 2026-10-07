@@ -40,7 +40,7 @@ export function GroupStandings({ group, results, me }: { group: GroupWithData; r
                     <Link href={`/oyuncular/${e.playerId}`} className="flex min-w-0 items-center gap-2">
                       <Avatar name={e.player.name} photoUrl={e.player.photoUrl} size="xs" />
                       <span className={`truncate ${mine ? "font-bold" : "font-semibold"}`}>{e.player.name}</span>
-                      {mine && <span className="chip bg-ball-500 text-[10px] text-table-900">Sen</span>}
+                      {mine && <span className="chip bg-ball-500 text-[10px] text-white">Sen</span>}
                     </Link>
                   </td>
                   <td className="px-2 py-2.5 text-center tabular-nums">{r.played}</td>

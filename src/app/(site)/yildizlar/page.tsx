@@ -31,7 +31,7 @@ export default async function StarsPage() {
             <section key={round.id}>
               <h2 className="mb-4 flex items-center gap-3 text-xl font-bold">
                 {round.name}
-                {round.status === "OPEN" && <span className="chip bg-ball-500 text-table-900">Devam ediyor</span>}
+                {round.status === "OPEN" && <span className="chip bg-ball-500 text-white">Devam ediyor</span>}
               </h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {groups.flatMap(({ g, stars }) =>

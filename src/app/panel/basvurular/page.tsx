@@ -47,7 +47,7 @@ export default async function ApplicationsPage({ searchParams }: PageProps<"/pan
                   <p className="text-sm text-ink-soft">
                     {a.email} · <a href={`tel:${a.phone}`} className="font-semibold text-table-600">{a.phone}</a> · {formatDateTime(a.createdAt)}
                   </p>
-                  {a.about && <p className="mt-3 rounded-2xl bg-table-50 px-4 py-3 text-sm whitespace-pre-line">{a.about}</p>}
+                  {a.about && <p className="mt-3 rounded-lg bg-table-50 px-4 py-3 text-sm whitespace-pre-line">{a.about}</p>}
                 </div>
               </div>
               <div className="mt-5 grid gap-4 border-t border-line pt-5 md:grid-cols-2">
