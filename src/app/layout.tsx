@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: { default: "Havelsan Rating", template: "%s · Havelsan Rating" },
   description: "Havelsan masa tenisi rating sistemi: oyuncu sıralaması, haftalık gruplar, maç sonuçları ve istatistikler.",
   appleWebApp: { title: "Havelsan Rating", statusBarStyle: "black" },
+  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = { themeColor: "#070b14" };

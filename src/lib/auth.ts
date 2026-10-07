@@ -5,7 +5,12 @@ import { SignJWT, jwtVerify } from "jose";
 import type { Role } from "@prisma/client";
 import { db } from "./db";
 
-const COOKIE = "pr_session";
+export const SESSION_COOKIE = "pr_session";
+const COOKIE = SESSION_COOKIE;
+// Canlıda AUTH_SECRET zorunlu: yoksa "dev-secret" ile herkes oturum üretebilirdi
+if (process.env.NODE_ENV === "production" && !process.env.AUTH_SECRET && process.env.NEXT_PHASE !== "phase-production-build") {
+  throw new Error("AUTH_SECRET ortam değişkeni tanımlı değil.");
+}
 const secret = new TextEncoder().encode(process.env.AUTH_SECRET ?? "dev-secret");
 
 type SessionPayload = { userId: string };
