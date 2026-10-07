@@ -58,7 +58,7 @@ export function ApplicationForm({ action }: { action: Action }) {
         </label>
         <label className="block">
           <span className="label">E-posta</span>
-          <input name="email" type="email" required autoComplete="email" className="input" placeholder="ornek@mail.com" />
+          <input name="email" type="email" required autoComplete="email" className="input" placeholder="ad.soyad@havelsan.com.tr" pattern=".+@havelsan\.com\.tr" title="Sadece @havelsan.com.tr uzantılı e-posta" />
         </label>
         <label className="block">
           <span className="label">Telefon</span>

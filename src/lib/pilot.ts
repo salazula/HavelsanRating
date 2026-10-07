@@ -10,7 +10,7 @@ import { PLANET_DEFAULT_SLOTS } from "./schedule";
  * Telefon numaraları uydurmadır.
  */
 
-export const PILOT_PASSWORD = "Planet2026!";
+export const PILOT_PASSWORD = "Havelsan2026!";
 
 export const PILOT_PLAYERS = [
   { name: "Alp Kayman", rating: 1798, group: "A" },
@@ -32,14 +32,14 @@ export const PILOT_MANAGER = { name: "Erkan Öztep", phone: "0536 418 72 05" } a
 
 const TR: Record<string, string> = { ç: "c", ğ: "g", ı: "i", i: "i", ö: "o", ş: "s", ü: "u" };
 
-/** "Celal Sami Tüfekçi" → "celalsamitufekci@planet.local" */
+/** "Celal Sami Tüfekçi" → "celalsamitufekci@deneme.local" */
 export function pilotEmail(name: string) {
   const local = name
     .toLocaleLowerCase("tr")
     .replace(/[çğıöşü]/g, (c) => TR[c] ?? c)
     .normalize("NFKD")
     .replace(/[^a-z]/g, "");
-  return `${local}@planet.local`;
+  return `${local}@deneme.local`;
 }
 
 /** Uydurma ama gerçekçi görünen numara: 0532 412 07 31 */

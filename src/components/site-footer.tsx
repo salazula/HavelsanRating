@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div>
           <div className="flex items-center gap-2.5 text-white">
             <Logo />
-            <span className="font-display font-bold">Masa Tenisi Rating</span>
+            <span className="font-display font-bold">Havelsan Rating</span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-table-200">
             Haftalık grup maçları, puan farkına göre hesaplanan rating ve oyuncu istatistikleri tek yerde.
@@ -35,7 +35,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/10 py-5 text-center text-xs text-table-200">
-        © {new Date().getFullYear()} Masa Tenisi Rating
+        © {new Date().getFullYear()} Havelsan Rating
       </div>
     </footer>
   );

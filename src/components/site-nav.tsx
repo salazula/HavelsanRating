@@ -31,7 +31,7 @@ export function SiteNav({ userName, live = 0 }: { userName?: string; live?: numb
           </Link>
           <span className="leading-tight">
             <Link href="/" onClick={() => setOpen(false)} className="block">
-              <span className="block font-display text-[15px] font-bold">Masa Tenisi Rating</span>
+              <span className="block font-display text-[15px] font-bold">Havelsan Rating</span>
             </Link>
             <a
               href={`https://instagram.com/${DEVELOPER_INSTAGRAM}`}

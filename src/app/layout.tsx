@@ -7,12 +7,12 @@ const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin", "latin-
 const grotesk = Space_Grotesk({ variable: "--font-grotesk", subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
-  title: { default: "Masa Tenisi Rating", template: "%s · Masa Tenisi Rating" },
-  description: "Masa tenisi rating sistemi: oyuncu sıralaması, haftalık gruplar, maç sonuçları ve istatistikler.",
-  appleWebApp: { title: "MT Rating", statusBarStyle: "black" },
+  title: { default: "Havelsan Rating", template: "%s · Havelsan Rating" },
+  description: "Havelsan masa tenisi rating sistemi: oyuncu sıralaması, haftalık gruplar, maç sonuçları ve istatistikler.",
+  appleWebApp: { title: "Havelsan Rating", statusBarStyle: "black" },
 };
 
-export const viewport: Viewport = { themeColor: "#110c33" };
+export const viewport: Viewport = { themeColor: "#081a36" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

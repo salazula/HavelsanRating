@@ -21,7 +21,7 @@ export default async function StarsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Masa Tenisi Rating"
+        eyebrow="Havelsan Rating"
         title="Haftanın yıldızları"
         subtitle={`Grubundaki tüm maçlarını kazanan oyuncu o haftanın yıldızıdır ve +${rules.unbeatenBonus} puan alır. Her grubun kendi yıldızı olabilir.`}
       />

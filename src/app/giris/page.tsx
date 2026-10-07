@@ -19,7 +19,7 @@ export default async function LoginPage() {
         <div className="stars absolute inset-0 animate-twinkle" />
         <Link href="/" className="relative flex items-center gap-2.5">
           <Logo />
-          <span className="font-display font-bold">Masa Tenisi Rating</span>
+          <span className="font-display font-bold">Havelsan Rating</span>
         </Link>
         <HeroArt className="relative my-auto w-full max-w-lg self-center drop-shadow-2xl" />
         <p className="relative max-w-md text-table-100">
@@ -30,7 +30,7 @@ export default async function LoginPage() {
         <div className="w-full max-w-sm">
           <Link href="/" className="mb-8 flex items-center gap-2.5 lg:hidden">
             <Logo />
-            <span className="font-display font-bold">Masa Tenisi Rating</span>
+            <span className="font-display font-bold">Havelsan Rating</span>
           </Link>
           <h1 className="text-3xl font-bold">Panele giriş</h1>
           <p className="mt-1 mb-8 text-ink-soft">
@@ -38,7 +38,7 @@ export default async function LoginPage() {
           </p>
           <ActionForm action={login} submitLabel="Giriş yap" submitClass="btn-primary w-full py-3">
             <Field label="E-posta">
-              <input name="email" type="email" required autoComplete="email" className="input" placeholder="ornek@mail.com" />
+              <input name="email" type="email" required autoComplete="email" className="input" placeholder="ad.soyad@havelsan.com.tr" />
             </Field>
             <Field label="Şifre">
               <input name="password" type="password" required autoComplete="current-password" className="input" />

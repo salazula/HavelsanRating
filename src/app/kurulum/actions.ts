@@ -4,12 +4,13 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { emailField } from "@/lib/email";
 import { createSession } from "@/lib/auth";
 import type { ActionState } from "@/lib/action-state";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Ad soyad gerekli"),
-  email: z.string().trim().toLowerCase().email("Geçerli bir e-posta girin"),
+  email: emailField(),
   password: z.string().min(8, "Şifre en az 8 karakter olmalı"),
 });
 

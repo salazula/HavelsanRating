@@ -1,5 +1,5 @@
 /*
- * Masa Tenisi Rating hesaplama kuralları (planet mayıs1.xlsm'deki formüllerin birebir karşılığı).
+ * Havelsan Rating hesaplama kuralları (planet mayıs1.xlsm'deki formüllerin birebir karşılığı).
  *
  * Maç puanı: puan farkı tablosuna göre. Beklenen sonuçta yüksek puanlı "yüksek" sütununu,
  * sürprizde düşük puanlı "düşük" sütununu kazanır; kaybeden aynı puanı kaybeder.

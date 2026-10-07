@@ -4,12 +4,13 @@ import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { emailField } from "@/lib/email";
 import { requireUser } from "@/lib/auth";
 import type { ActionState } from "@/lib/action-state";
 
 const profile = z.object({
   name: z.string().trim().min(2, "Ad soyad gerekli"),
-  email: z.string().trim().toLowerCase().email("Geçerli bir e-posta girin"),
+  email: emailField(),
   phone: z.string().trim().optional().transform((v) => v || null),
   role: z.enum(["SUPER_ADMIN", "LEAGUE_MANAGER", "PLAYER"]),
   playerId: z.string().transform((v) => v || null),

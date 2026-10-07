@@ -12,7 +12,7 @@ function UserFields({ u, players, withPassword }: { u?: User; players: Player[];
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       <Field label="Ad soyad"><input name="name" required defaultValue={u?.name} className="input" /></Field>
-      <Field label="E-posta"><input name="email" type="email" required defaultValue={u?.email} className="input" /></Field>
+      <Field label="E-posta"><input name="email" type="email" required defaultValue={u?.email} className="input" placeholder="ad.soyad@havelsan.com.tr" /></Field>
       <Field label="Telefon"><input name="phone" type="tel" defaultValue={u?.phone ?? ""} className="input" /></Field>
       {withPassword && <Field label="Geçici şifre" hint="En az 8 karakter"><input name="password" type="text" minLength={8} required className="input" /></Field>}
       <Field label="Rol">
