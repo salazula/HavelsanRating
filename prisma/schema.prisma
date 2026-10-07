@@ -66,7 +66,6 @@ model Player {
   matches    Int      @default(0) // Toplam maç (geçmişten aktarılanlar dahil)
   wins       Int      @default(0) // Toplam galibiyet
   phone      String?
-  photoUrl   String?
   active     Boolean  @default(true)
   isDemo     Boolean  @default(false) // Deneme verisi
   isPilot    Boolean  @default(false) // Pilot uygulama verisi (Ayarlar'dan topluca silinebilir)
@@ -113,8 +112,6 @@ model Group {
   playAt   DateTime? // Eski sabit maç günü; yeni haftalarda boş (maçlar Pazartesi-Cuma serbest)
   size     Int       @default(6) // Fikstürde tamamlanacak kişi sayısı
   order    Int       @default(0)
-  telegramSentAt DateTime?
-  telegramError  String?
 
   entries GroupEntry[]
   matches Match[]
@@ -203,14 +200,12 @@ model Application {
   email         String
   phone         String
   passwordHash  String? // Onayda kullanıcı hesabına aktarılır, karar verilince silinir
-  photoUrl      String?
   about         String? // Masa tenisi geçmişi (isteğe bağlı)
   status        ApplicationStatus @default(PENDING)
   rejectReason  String?
   decidedBy     String?
   decidedAt     DateTime?
   playerId      String?
-  telegramError String?
   createdAt     DateTime          @default(now())
 
   @@index([status, createdAt])

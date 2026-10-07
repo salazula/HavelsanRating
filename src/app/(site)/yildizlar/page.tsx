@@ -38,7 +38,7 @@ export default async function StarsPage() {
                   stars.map(({ entry, result }) => (
                     <div key={entry.id} className="card relative flex items-center gap-4 overflow-hidden p-4">
                       <div className="absolute -top-6 -right-6 text-7xl opacity-10">⭐</div>
-                      <Avatar name={entry.player.name} photoUrl={entry.player.photoUrl} size="lg" />
+                      <Avatar name={entry.player.name} size="lg" />
                       <div className="min-w-0">
                         <PlayerLink id={entry.playerId} name={entry.player.name} className="block truncate text-lg" />
                         <p className="text-sm text-ink-soft">{g.code} Grubu · {result.won}/{result.played} galibiyet</p>

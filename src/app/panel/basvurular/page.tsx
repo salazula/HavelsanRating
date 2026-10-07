@@ -4,7 +4,7 @@ import { formatDateTime } from "@/lib/labels";
 import { PanelTitle } from "@/components/panel-title";
 import { ActionForm, Field } from "@/components/forms/action-form";
 import { Avatar, Empty, Notice, PlayerLink } from "@/components/ui";
-import { approveApplication, rejectApplication, resendWelcome } from "./actions";
+import { approveApplication, rejectApplication } from "./actions";
 
 export default async function ApplicationsPage({ searchParams }: PageProps<"/panel/basvurular">) {
   await requireUser(["SUPER_ADMIN", "LEAGUE_MANAGER"]);
@@ -24,10 +24,7 @@ export default async function ApplicationsPage({ searchParams }: PageProps<"/pan
 
       {last?.status === "APPROVED" && (
         <div className="mb-6">
-          <Notice tone={last.telegramError ? "info" : "success"}>
-            {last.name} {lastPlayer?.rating} puanla aramıza katıldı ve giriş yapabilir.{" "}
-            {last.telegramError ? `Telegram mesajı gönderilemedi: ${last.telegramError}` : "Telegram kanalına duyuruldu."}
-          </Notice>
+          <Notice tone="success">{last.name} {lastPlayer?.rating} puanla aramıza katıldı ve giriş yapabilir.</Notice>
         </div>
       )}
       {last?.status === "REJECTED" && (
@@ -41,7 +38,7 @@ export default async function ApplicationsPage({ searchParams }: PageProps<"/pan
           {pending.map((a) => (
             <section key={a.id} className="card p-5">
               <div className="flex flex-wrap items-start gap-4">
-                <Avatar name={a.name} photoUrl={a.photoUrl} size="xl" />
+                <Avatar name={a.name} size="xl" />
                 <div className="min-w-0 flex-1">
                   <h2 className="text-xl font-bold">{a.name}</h2>
                   <p className="text-sm text-ink-soft">
@@ -75,24 +72,18 @@ export default async function ApplicationsPage({ searchParams }: PageProps<"/pan
           <ul className="card divide-y divide-line">
             {decided.map((a) => (
               <li key={a.id} className="flex flex-wrap items-center gap-3 px-4 py-3 text-sm">
-                <Avatar name={a.name} photoUrl={a.photoUrl} size="sm" />
+                <Avatar name={a.name} size="sm" />
                 <span className="min-w-0 flex-1">
                   {a.playerId ? <PlayerLink id={a.playerId} name={a.name} /> : <span className="font-semibold">{a.name}</span>}
                   <span className="block text-xs text-ink-soft">
                     {a.decidedBy} · {formatDateTime(a.decidedAt)}
                     {a.rejectReason ? ` · ${a.rejectReason}` : ""}
-                    {a.telegramError ? ` · Telegram: ${a.telegramError}` : ""}
                   </span>
                 </span>
                 {a.status === "APPROVED" ? (
                   <span className="chip bg-emerald-50 text-emerald-700">Onaylandı</span>
                 ) : (
                   <span className="chip bg-rubber-500/10 text-rubber-600">Reddedildi</span>
-                )}
-                {a.status === "APPROVED" && a.telegramError && (
-                  <ActionForm action={resendWelcome.bind(null, a.id)} submitLabel="Telegram'a tekrar gönder" submitClass="btn-ghost py-1.5 text-xs" className="flex items-center gap-2">
-                    <span />
-                  </ActionForm>
                 )}
               </li>
             ))}

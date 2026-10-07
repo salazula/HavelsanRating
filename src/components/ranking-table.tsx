@@ -33,7 +33,7 @@ export function RankingTable({ rows, changes, compact }: { rows: Row[]; changes:
                 </td>
                 <td className="px-3 py-2.5">
                   <Link href={`/oyuncular/${p.id}`} className="flex items-center gap-2.5 font-semibold hover:text-table-600">
-                    <Avatar name={p.name} photoUrl={p.photoUrl} size="sm" />
+                    <Avatar name={p.name} size="sm" />
                     {p.name}
                   </Link>
                 </td>

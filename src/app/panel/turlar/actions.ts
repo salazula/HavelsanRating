@@ -8,7 +8,6 @@ import { requireUser } from "@/lib/auth";
 import { groupCode } from "@/lib/rating";
 import { DEFAULT_GROUP_SIZE, dateFromYmd, fromLocalInput, weekName } from "@/lib/schedule";
 import { applyClose, distribute, generateFixture } from "@/lib/weekly";
-import { postGroupIfComplete } from "@/lib/telegram";
 import type { ActionState } from "@/lib/action-state";
 
 const MANAGERS = ["SUPER_ADMIN", "LEAGUE_MANAGER"] as const;
@@ -130,7 +129,6 @@ export async function undoFixture(roundId: string, _p: ActionState): Promise<Act
       }
     }
     await tx.groupEntry.updateMany({ where: { group: { roundId }, attendance: "AUTO_NO" }, data: { attendance: "PENDING", attendanceAt: null } });
-    await tx.group.updateMany({ where: { roundId }, data: { telegramSentAt: null, telegramError: null } });
     await tx.round.update({ where: { id: roundId }, data: { status: "ATTENDANCE", openedAt: null } });
   });
   refresh();
@@ -217,14 +215,6 @@ export async function setManualBonus(entryId: string, _p: ActionState, fd: FormD
   await db.groupEntry.update({ where: { id: entryId }, data: { manualBonus: value, note } });
   refresh();
   return { ok: "Ek puan kaydedildi." };
-}
-
-export async function resendTelegram(groupId: string, _p: ActionState): Promise<ActionState> {
-  await requireUser([...MANAGERS]);
-  const res = await postGroupIfComplete(groupId, true);
-  refresh();
-  if (!res) return { error: "Grubun tüm maçları kesinleşmeden gönderilemez." };
-  return res.ok ? { ok: "Telegram kanalına gönderildi." } : { error: res.error };
 }
 
 /** Haftayı kapatır: kesinleşmiş maçlara göre puanları hesaplar ve oyunculara işler. */

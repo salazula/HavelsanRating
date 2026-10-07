@@ -4,7 +4,6 @@ import { computeGroup, fillGroups, groupCode, roundRobinPairs } from "./rating";
 import { getRules, toStored } from "./rules";
 import { approvedMatches, entryInput } from "./queries";
 import { planGroups, playUntil } from "./schedule";
-import { postGroupIfComplete } from "./telegram";
 
 /**
  * Katılım süresi bitmiş turun fikstürünü oluşturur:
@@ -64,7 +63,6 @@ export async function forfeitUnplayed(roundId: string) {
     where: { id: { in: pending.map((m) => m.id) }, status: "PENDING" },
     data: { status: "APPROVED", kind: "BOTH_ABSENT", setsA: null, setsB: null, submittedAt: now, confirmedAt: now },
   });
-  for (const groupId of new Set(pending.map((m) => m.groupId))) await postGroupIfComplete(groupId).catch(() => null);
   return res.count;
 }
 

@@ -77,7 +77,7 @@ export default async function HomePage() {
                 {stars.map((s) => (
                   <li key={s.id} className="flex items-center gap-3 px-4 py-3 text-sm">
                     <span className="text-lg">⭐</span>
-                    <Avatar name={s.player.name} photoUrl={s.player.photoUrl} size="sm" />
+                    <Avatar name={s.player.name} size="sm" />
                     <PlayerLink id={s.playerId} name={s.player.name} className="flex-1" />
                     <span className="chip bg-table-50 text-table-700">{s.group} Grubu</span>
                     <span className="chip bg-ball-500/15 text-ball-600">+{rules.unbeatenBonus}</span>

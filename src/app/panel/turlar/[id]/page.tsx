@@ -2,12 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
-import { groupComplete, groupInclude, groupResults, type GroupWithData } from "@/lib/queries";
+import { groupInclude, groupResults, type GroupWithData } from "@/lib/queries";
 import { getRules } from "@/lib/rules";
 import type { Rules } from "@/lib/rating";
 import { attendanceLabel, formatDateTime, signed } from "@/lib/labels";
 import { playWindowText, toLocalInput } from "@/lib/schedule";
-import { telegramConfigured } from "@/lib/telegram";
 import { PanelTitle } from "@/components/panel-title";
 import { ActionForm, Field } from "@/components/forms/action-form";
 import { GroupTable } from "@/components/group-table";
@@ -24,7 +23,6 @@ import {
   placePlayer,
   redistribute,
   removeEntry,
-  resendTelegram,
   setAttendance,
   setManualBonus,
   undoClose,
@@ -208,7 +206,6 @@ function OpenView({ roundId, groups, superAdmin, rules }: { roundId: string; gro
   const done = all.filter((m) => m.status === "APPROVED").length;
   const waiting = all.filter((m) => m.status === "SUBMITTED").length;
   const disputed = all.filter((m) => m.status === "DISPUTED").length;
-  const tg = telegramConfigured();
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-3 gap-4">
@@ -219,25 +216,11 @@ function OpenView({ roundId, groups, superAdmin, rules }: { roundId: string; gro
           </div>
         ))}
       </div>
-      {!tg && <Notice tone="info">Telegram ayarları yapılmamış; grup sonuçları kanala gönderilmeyecek (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID).</Notice>}
       {groups.map((g) => {
         const res = groupResults(g, rules);
-        const complete = groupComplete(g);
         return (
           <section key={g.id} className="space-y-2">
             <GroupTable group={g} results={res} />
-            {complete && (
-              <div className="flex flex-wrap items-center gap-3 px-1 text-xs">
-                <span className={g.telegramSentAt ? "text-emerald-700" : "text-ink-soft"}>
-                  {g.telegramSentAt ? `✓ Telegram'a gönderildi (${formatDateTime(g.telegramSentAt)})` : g.telegramError ? `Telegram: ${g.telegramError}` : "Telegram'a gönderilmedi"}
-                </span>
-                {tg && (
-                  <ActionForm action={resendTelegram.bind(null, g.id)} submitLabel={g.telegramSentAt ? "Tekrar gönder" : "Gönder"} submitClass="font-semibold text-table-600" className="flex items-center gap-2">
-                    <span />
-                  </ActionForm>
-                )}
-              </div>
-            )}
             <details className="card px-4 py-3">
               <summary className="cursor-pointer text-sm font-semibold text-table-600">{g.code} Grubu: maç sonuçları ve ek puanlar</summary>
               <ul className="mt-3 divide-y divide-line">

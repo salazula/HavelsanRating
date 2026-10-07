@@ -32,5 +32,5 @@ export async function proxy(req: NextRequest) {
 
 export const config = {
   // Next'in kendi dosyaları ve uygulama simgeleri hariç her istek
-  matcher: ["/((?!_next/static|_next/image|favicon\\.ico|icon|apple-icon|manifest\\.webmanifest|robots\\.txt).*)"],
+  matcher: ["/((?!_next/static|_next/image|_vercel|favicon\\.ico|icon|apple-icon|manifest\\.webmanifest|robots\\.txt).*)"],
 };
