@@ -46,8 +46,11 @@ export function weekName(weekStart: Date) {
   return a[1] === b[1] ? `${a[0]}-${b[0]} ${b[1]}` : `${monthFmt.format(weekStart)} - ${monthFmt.format(end)}`;
 }
 
-/** Varsayılan grup düzeni: 6'şar kişilik A-D (gün/saat yok); oyuncu artarsa planGroups yeni grup açar */
-export const DEFAULT_SLOTS: { code: string; size: number; place: string | null }[] = ["A", "B", "C", "D"].map((code) => ({ code, size: 6, place: null }));
+/** Varsayılan grup büyüklüğü: iş yerinde bir haftada 2 maç rahat oynanır */
+export const DEFAULT_GROUP_SIZE = 3;
+
+/** Varsayılan grup düzeni: 3'er kişilik A-D (gün/saat yok); oyuncu artarsa planGroups yeni grup açar */
+export const DEFAULT_SLOTS: { code: string; size: number; place: string | null }[] = ["A", "B", "C", "D"].map((code) => ({ code, size: DEFAULT_GROUP_SIZE, place: null }));
 
 type SlotPlan = { code: string; size: number; place: string | null };
 /**
@@ -63,7 +66,7 @@ export function planGroups(slots: SlotPlan[], players: number, code: (i: number)
     plan.push({ ...s, take });
     left -= take;
   }
-  const size = slots.at(-1)?.size ?? 6;
+  const size = slots.at(-1)?.size ?? DEFAULT_GROUP_SIZE;
   for (let i = 0; left > 0; i++) {
     const c = code(i);
     if (used.has(c)) continue;

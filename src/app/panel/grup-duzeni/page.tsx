@@ -1,6 +1,7 @@
 import type { GroupSlot } from "@prisma/client";
 import { db } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
+import { DEFAULT_GROUP_SIZE } from "@/lib/schedule";
 import { PanelTitle } from "@/components/panel-title";
 import { ActionForm, Field } from "@/components/forms/action-form";
 import { deleteSlot, loadDefaultSlots, saveSlot } from "./actions";
@@ -9,7 +10,7 @@ function SlotFields({ s, nextOrder }: { s?: GroupSlot; nextOrder: number }) {
   return (
     <div className="grid gap-3 sm:grid-cols-6">
       <Field label="Grup"><input name="code" required defaultValue={s?.code} maxLength={3} className="input uppercase" /></Field>
-      <Field label="Kişi"><input name="size" type="number" min={2} max={12} required defaultValue={s?.size ?? 6} className="input" /></Field>
+      <Field label="Kişi"><input name="size" type="number" min={2} max={12} required defaultValue={s?.size ?? DEFAULT_GROUP_SIZE} className="input" /></Field>
       <Field label="Sıra"><input name="order" type="number" min={0} defaultValue={s?.order ?? nextOrder} className="input" /></Field>
       <div className="sm:col-span-3"><Field label="Yer (isteğe bağlı)"><input name="place" defaultValue={s?.place ?? ""} placeholder="ör. Genel Müdürlük sosyal alan" className="input" /></Field></div>
     </div>
@@ -27,7 +28,7 @@ export default async function SlotsPage() {
       />
       {!slots.length && (
         <section className="card mb-6 p-5">
-          <p className="mb-3 text-sm text-ink-soft">Henüz grup tanımlı değil. 6’şar kişilik A-D gruplarından oluşan varsayılan düzeni tek tıkla yükleyebilir, sonra düzenleyebilirsiniz. Oyuncu arttıkça yeni gruplar kendiliğinden eklenir.</p>
+          <p className="mb-3 text-sm text-ink-soft">Henüz grup tanımlı değil. 3’er kişilik A-D gruplarından oluşan varsayılan düzeni tek tıkla yükleyebilir, sonra düzenleyebilirsiniz. Oyuncu arttıkça yeni gruplar kendiliğinden eklenir.</p>
           <ActionForm action={loadDefaultSlots} submitLabel="Varsayılan grup düzenini yükle" className="space-y-2"><span /></ActionForm>
         </section>
       )}
