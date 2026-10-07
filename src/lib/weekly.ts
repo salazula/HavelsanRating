@@ -3,7 +3,8 @@ import { db } from "./db";
 import { computeGroup, fillGroups, roundRobinPairs } from "./rating";
 import { getRules, toStored } from "./rules";
 import { approvedMatches, entryInput } from "./queries";
-import { playAtFor, slotSchedule } from "./schedule";
+import { playUntil } from "./schedule";
+import { postGroupIfComplete } from "./telegram";
 
 /**
  * Katılım süresi bitmiş turun fikstürünü oluşturur:
@@ -51,9 +52,28 @@ export async function generateFixture(roundId: string) {
   );
 }
 
+/**
+ * Haftası (Cuma gecesi) bitmiş turda hiç sonuç girilmemiş maçları hükmen (iki taraf da gelmedi) olarak kesinleştirir.
+ * Onay bekleyen ve itirazlı maçlara dokunmaz; onları lig sorumlusu sonuçlandırır.
+ */
+export async function forfeitUnplayed(roundId: string) {
+  const now = new Date();
+  const pending = await db.match.findMany({ where: { group: { roundId }, status: "PENDING" }, select: { id: true, groupId: true } });
+  if (!pending.length) return 0;
+  const res = await db.match.updateMany({
+    where: { id: { in: pending.map((m) => m.id) }, status: "PENDING" },
+    data: { status: "APPROVED", kind: "BOTH_ABSENT", setsA: null, setsB: null, submittedAt: now, confirmedAt: now },
+  });
+  for (const groupId of new Set(pending.map((m) => m.groupId))) await postGroupIfComplete(groupId).catch(() => null);
+  return res.count;
+}
+
 let lastRun = 0;
 
-/** Süresi geçmiş katılım aşamalarını fikstüre çevirir. Sayfa isteklerinde ve günlük cron'da çağrılır. */
+/**
+ * Süresi geçmiş katılım aşamalarını fikstüre çevirir, Cuma gecesi biten haftalarda oynanmayan maçları hükmen yapar.
+ * Sayfa isteklerinde ve günlük cron'da çağrılır.
+ */
 export async function runDueJobs(force = false) {
   const now = Date.now();
   if (!force && now - lastRun < 30_000) return;
@@ -61,6 +81,8 @@ export async function runDueJobs(force = false) {
   try {
     const due = await db.round.findMany({ where: { status: "ATTENDANCE", deadline: { lte: new Date() } }, select: { id: true } });
     for (const r of due) await generateFixture(r.id);
+    const open = await db.round.findMany({ where: { status: "OPEN", isDemo: false, weekStart: { not: null } }, select: { id: true, weekStart: true } });
+    for (const r of open) if (playUntil(r.weekStart!) <= new Date()) await forfeitUnplayed(r.id);
   } catch (e) {
     console.error("Otomatik fikstür hatası:", e);
   }
@@ -92,8 +114,7 @@ export async function distribute(roundId: string, weekStart: Date, demo = false)
           code: s.code,
           order: i,
           size: s.size,
-          schedule: slotSchedule(s),
-          playAt: playAtFor(weekStart, s),
+          schedule: s.place,
           entries: { create: chunk.map((p, j) => ({ playerId: p.id, seed: j, ratingBefore: p.rating, setAvgBefore: p.setAverage })) },
         },
       });

@@ -21,7 +21,7 @@ export default async function RoundsPage() {
   const slotCount = await db.groupSlot.count();
   return (
     <>
-      <PanelTitle title="Haftalar" subtitle="Her hafta: gruplar kurulur → oyuncular son güne kadar katılım bildirir → fikstür otomatik oluşur, maçlar oynanır → hafta kapanır, puanlar işlenir.">
+      <PanelTitle title="Haftalar" subtitle="Her hafta: gruplar kurulur → oyuncular son güne kadar katılım bildirir → fikstür otomatik oluşur → maçlar Pazartesi-Cuma istenen gün oynanır, Cuma gecesine kadar oynanmayanlar otomatik hükmen olur → hafta kapanır, puanlar işlenir.">
         <Link href="/panel/grup-duzeni" className="btn-ghost">Grup düzeni →</Link>
       </PanelTitle>
       {!busy && (

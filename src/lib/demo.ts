@@ -1,7 +1,7 @@
 import "server-only";
 import bcrypt from "bcryptjs";
 import { db } from "./db";
-import { PLANET_DEFAULT_SLOTS, dateFromYmd, nextMonday, weekName } from "./schedule";
+import { DEFAULT_SLOTS, dateFromYmd, nextMonday, weekName } from "./schedule";
 import { applyClose, distribute, generateFixture } from "./weekly";
 import { SCORES } from "./rating";
 
@@ -40,7 +40,7 @@ export async function createDemo(): Promise<{ ok: string } | { error: string }> 
     return { error: "Devam eden gerçek bir hafta varken deneme verisi oluşturulamaz." };
   }
   if (!(await db.groupSlot.count())) {
-    await db.groupSlot.createMany({ data: PLANET_DEFAULT_SLOTS.map((s, i) => ({ ...s, order: i })) });
+    await db.groupSlot.createMany({ data: DEFAULT_SLOTS.map((s, i) => ({ ...s, order: i })) });
   }
   const rand = rng();
   const hash = await bcrypt.hash(DEMO_PASSWORD, 10);

@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { isManager, requireUser } from "@/lib/auth";
 import { isValidScore } from "@/lib/rating";
 import { postGroupIfComplete } from "@/lib/telegram";
+import { playUntil } from "@/lib/schedule";
 import type { ActionState } from "@/lib/action-state";
 
 function refresh() {
@@ -31,6 +32,9 @@ export async function submitResult(matchId: string, _p: ActionState, fd: FormDat
   const m = await loadMatch(matchId);
   if (!m) return { error: "Maç bulunamadı." };
   if (m.group.round.status !== "OPEN") return { error: "Bu tur sonuç girişine kapalı." };
+  if (m.group.round.weekStart && playUntil(m.group.round.weekStart) <= new Date()) {
+    return { error: "Hafta Cuma gecesi sona erdi; oynanmayan maçlar hükmen sayılır. Düzeltme için lig sorumlusuna başvurun." };
+  }
   const me = user.playerId;
   if (!me || (m.playerAId !== me && m.playerBId !== me)) return { error: "Sadece kendi maçınızın sonucunu girebilirsiniz." };
   if (m.status === "APPROVED") return { error: "Bu maçın sonucu kesinleşmiş. Değişiklik için lig sorumlusuna başvurun." };

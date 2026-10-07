@@ -139,7 +139,7 @@ function formatGroupReport(g: ReportGroup, rules: Rules, sample = false, withMat
   const lines: string[] = [];
   if (sample) lines.push("🧪 <i>Örnek mesaj: gerçek bir sonuç değildir, grup tamamlanınca gelecek mesajın görünümüdür.</i>", "");
   lines.push(`🏓 <b>Havelsan Rating · ${esc(g.round.name)} · ${esc(g.code)} Grubu</b>`);
-  if (g.schedule) lines.push(`📅 ${esc(g.schedule)}`);
+  if (g.schedule) lines.push(`📍 ${esc(g.schedule)}`);
   const stars = groupStarsOf(g, res);
   // Haftanın yıldızı görselde büyük şeritle gösterilir; yazıda yalnızca görsel gönderilemezse yer alır
   if (stars.length && withMatches) {
@@ -221,7 +221,7 @@ function sampleGroup() {
     liveById: null, liveVersion: 0,
   }));
   const g = {
-    id: "g", roundId: "r", code: "A", schedule: "Pazar 16:00-21:00 · 1 Numaralı Masa", playAt: now, size: 6, order: 0,
+    id: "g", roundId: "r", code: "A", schedule: null, playAt: null, size: 6, order: 0,
     telegramSentAt: null, telegramError: null, entries, matches, round: { name: "Örnek hafta", status: "OPEN" },
   } as unknown as ReportGroup;
   return g;

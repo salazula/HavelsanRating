@@ -1,7 +1,7 @@
 import "server-only";
 import bcrypt from "bcryptjs";
 import { db } from "./db";
-import { PLANET_DEFAULT_SLOTS } from "./schedule";
+import { DEFAULT_SLOTS } from "./schedule";
 
 /*
  * Pilot uygulama: Excel'deki ("grup gir" sayfası) A ve B grubu oyuncularını gerçek oyuncu olarak ekler ve
@@ -61,7 +61,7 @@ export async function pilotAccounts() {
 
 export async function createPilot(): Promise<{ ok: string } | { error: string }> {
   if (!(await db.groupSlot.count())) {
-    await db.groupSlot.createMany({ data: PLANET_DEFAULT_SLOTS.map((s, i) => ({ ...s, order: i })) });
+    await db.groupSlot.createMany({ data: DEFAULT_SLOTS.map((s, i) => ({ ...s, order: i })) });
   }
   const existing = await db.player.findMany({ where: { isDemo: false }, select: { name: true, isPilot: true } });
   const taken = new Set(existing.filter((p) => !p.isPilot).map((p) => key(p.name)));
