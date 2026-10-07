@@ -5,6 +5,7 @@ import { getShowcaseRound, groupResults } from "@/lib/queries";
 import { getRules } from "@/lib/rules";
 import { AttendanceList, GroupTable } from "@/components/group-table";
 import { formatDateTime } from "@/lib/labels";
+import { playWindowText } from "@/lib/schedule";
 import { Empty, PageHeader } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Gruplar" };
@@ -24,7 +25,7 @@ export default async function GroupsPage({ searchParams }: PageProps<"/gruplar">
       <PageHeader
         eyebrow={visible ? ({ ATTENDANCE: "Katılım bildirimi sürüyor", OPEN: "Maçlar oynanıyor", CLOSED: "Tamamlanan hafta", DRAFT: "" }[visible.status]) : "Gruplar"}
         title={visible ? `${visible.name} grupları` : "Gruplar"}
-        subtitle={visible?.status === "ATTENDANCE" ? `Oyuncular ${visible.deadline ? formatDateTime(visible.deadline) : "son güne"} kadar katılım bildirir; ardından eksik gruplar alt gruptan tamamlanır ve fikstür oluşur.` : visible?.status === "OPEN" ? `Skorlar satırdaki oyuncunun gözünden yazılır; * işaretliler rakip onayı bekliyor. Puan sütunu kesinleşen maçları gösterir; eksik maç (+${rules.perMissingMatch}) ve yıldız (+${rules.unbeatenBonus}) bonusları grubun tüm maçları bitince eklenir. ↑ işaretli oyuncular grubu tamamlamak için alt gruptan alındı.` : "Skorlar satırdaki oyuncunun gözünden yazılır. Puan sütunu set averajı ve grup bonuslarını içerir."}
+        subtitle={visible?.status === "ATTENDANCE" ? `Oyuncular ${visible.deadline ? formatDateTime(visible.deadline) : "son güne"} kadar katılım bildirir; ardından eksik gruplar alt gruptan tamamlanır ve fikstür oluşur.` : visible?.status === "OPEN" ? `${visible.weekStart ? `Maçlar ${playWindowText(visible.weekStart)} arasında istenen gün oynanır; oynanmayanlar Cuma gecesi hükmen sayılır. ` : ""}Skorlar satırdaki oyuncunun gözünden yazılır; * işaretliler rakip onayı bekliyor. Puan sütunu kesinleşen maçları gösterir; eksik maç (+${rules.perMissingMatch}) ve yıldız (+${rules.unbeatenBonus}) bonusları grubun tüm maçları bitince eklenir. ↑ işaretli oyuncular grubu tamamlamak için alt gruptan alındı.` : "Skorlar satırdaki oyuncunun gözünden yazılır. Puan sütunu set averajı ve grup bonuslarını içerir."}
       >
         {rounds.length > 1 && (
           <div className="flex flex-wrap gap-2">

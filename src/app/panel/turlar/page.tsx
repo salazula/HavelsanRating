@@ -21,13 +21,13 @@ export default async function RoundsPage() {
   const slotCount = await db.groupSlot.count();
   return (
     <>
-      <PanelTitle title="Haftalar" subtitle="Her hafta: gruplar kurulur → oyuncular son güne kadar katılım bildirir → fikstür otomatik oluşur, maçlar oynanır → hafta kapanır, puanlar işlenir.">
+      <PanelTitle title="Haftalar" subtitle="Her hafta: gruplar kurulur → oyuncular son güne kadar katılım bildirir → fikstür otomatik oluşur → maçlar Pazartesi-Cuma istenen gün oynanır, Cuma gecesine kadar oynanmayanlar otomatik hükmen olur → hafta kapanır, puanlar işlenir.">
         <Link href="/panel/grup-duzeni" className="btn-ghost">Grup düzeni →</Link>
       </PanelTitle>
       {!busy && (
         <section className="card mb-8 p-5">
           <h2 className="mb-1 font-bold">+ Yeni hafta</h2>
-          <p className="mb-4 text-sm text-ink-soft">Aktif oyuncular puan sırasına göre grup düzenindeki gruplara yerleştirilir.{!slotCount && <> Önce <Link href="/panel/grup-duzeni" className="font-semibold text-table-600 underline">grup düzenini</Link> tanımlayın.</>}</p>
+          <p className="mb-4 text-sm text-ink-soft">Aktif oyuncular puan sırasına göre grup düzenindeki gruplara yerleştirilir; gruplar yetmezse yenileri açılır.{!slotCount && <> Önce <Link href="/panel/grup-duzeni" className="font-semibold text-table-600 underline">grup düzenini</Link> tanımlayın.</>}</p>
           <ActionForm action={createRound} submitLabel="Haftayı oluştur" className="flex flex-wrap items-end gap-3">
             <div className="w-48"><Field label="Hafta başı (pazartesi)"><input name="weekStart" type="date" required defaultValue={monday} className="input" /></Field></div>
             <div className="w-60"><Field label="Son katılım bildirimi"><input name="deadline" type="datetime-local" required defaultValue={defDeadline} className="input" /></Field></div>

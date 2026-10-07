@@ -23,7 +23,7 @@ export function SiteNav({ userName, live = 0 }: { userName?: string; live?: numb
   const active = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-table-900/90 text-white backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-table-900/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6">
         <div className="flex items-center gap-2.5">
           <Link href="/" onClick={() => setOpen(false)} aria-label="Ana sayfa">
@@ -50,7 +50,7 @@ export function SiteNav({ userName, live = 0 }: { userName?: string; live?: numb
             <Link
               key={l.href}
               href={l.href}
-              className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
+              className={`rounded-md px-3 py-2 text-[13px] font-semibold tracking-wide uppercase transition ${
                 active(l.href) ? "bg-white/12 text-white" : "text-table-100 hover:bg-white/8 hover:text-white"
               }`}
             >

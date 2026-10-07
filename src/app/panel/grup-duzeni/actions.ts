@@ -4,16 +4,12 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
-import { PLANET_DEFAULT_SLOTS } from "@/lib/schedule";
+import { DEFAULT_SLOTS } from "@/lib/schedule";
 import type { ActionState } from "@/lib/action-state";
 
 const MANAGERS = ["SUPER_ADMIN", "LEAGUE_MANAGER"] as const;
-const time = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, "Saat SS:DD biçiminde olmalı");
 const schema = z.object({
   code: z.string().trim().toUpperCase().min(1, "Grup kodu girin").max(3),
-  weekday: z.coerce.number().int().min(1).max(7),
-  startTime: time,
-  endTime: z.union([time, z.literal("")]).transform((v) => v || null),
   place: z.string().trim().max(80).transform((v) => v || null),
   size: z.coerce.number().int().min(2, "Kişi sayısı en az 2").max(12, "Kişi sayısı en fazla 12"),
   order: z.coerce.number().int().min(0).max(99),
@@ -45,7 +41,7 @@ export async function deleteSlot(id: string, _p: ActionState): Promise<ActionSta
 export async function loadDefaultSlots(_p: ActionState): Promise<ActionState> {
   await requireUser([...MANAGERS]);
   if (await db.groupSlot.count()) return { error: "Grup düzeni zaten tanımlı." };
-  await db.groupSlot.createMany({ data: PLANET_DEFAULT_SLOTS.map((s, i) => ({ ...s, order: i })) });
+  await db.groupSlot.createMany({ data: DEFAULT_SLOTS.map((s, i) => ({ ...s, order: i })) });
   refresh();
-  return { ok: "Excel'deki grup düzeni yüklendi." };
+  return { ok: "Varsayılan grup düzeni yüklendi." };
 }

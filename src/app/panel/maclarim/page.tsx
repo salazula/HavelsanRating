@@ -11,6 +11,7 @@ import { ActionForm } from "@/components/forms/action-form";
 import { ScoreSelect } from "@/components/score-select";
 import { Delta, Empty, MatchStatusChip, Notice } from "@/components/ui";
 import { formatDateTime } from "@/lib/labels";
+import { playUntil, playWindowText } from "@/lib/schedule";
 import { confirmResult, declareAttendance, disputeResult, submitResult } from "./actions";
 
 export default async function MyMatches() {
@@ -34,7 +35,9 @@ export default async function MyMatches() {
           <div className="card p-5">
             <p className="text-sm text-ink-soft">Bu hafta</p>
             <p className="font-display text-2xl font-bold">{entry.group.code} Grubu</p>
-            <p className="mt-1 text-sm">{entry.group.schedule}{entry.group.playAt ? ` · ${formatDateTime(entry.group.playAt)}` : ""}</p>
+            <p className="mt-1 text-sm">
+              Maçlar {round.weekStart ? playWindowText(round.weekStart) : "Pazartesi-Cuma"} arasında, istediğiniz gün{entry.group.schedule ? ` · ${entry.group.schedule}` : ""}
+            </p>
             <div className="mt-4 border-t border-line pt-4">
               <p className="mb-3 text-sm">
                 Durumunuz:{" "}
@@ -66,6 +69,7 @@ export default async function MyMatches() {
       })
     : [];
   const group = matches[0]?.group;
+  const weekOpen = !round?.weekStart || playUntil(round.weekStart) > new Date();
   // Oyuncunun grubu: puan durumu ve diğer maçlar (fikstür oluştuysa)
   const groupId = group?.id ?? (round?.status === "OPEN" ? entry?.groupId : undefined);
   const myGroup = groupId ? await db.group.findUnique({ where: { id: groupId }, include: { ...groupInclude, round: true } }) : null;
@@ -74,10 +78,21 @@ export default async function MyMatches() {
     <>
       <PanelTitle
         title="Maçlarım"
-        subtitle={round ? `${round.name}${group ? ` · ${group.code} Grubu${group.playAt ? ` · ${formatDateTime(group.playAt)}` : ""}${group.schedule ? ` · ${group.schedule}` : ""}` : ""}` : "Şu an devam eden bir hafta yok."}
+        subtitle={round ? `${round.name}${group ? ` · ${group.code} Grubu${group.schedule ? ` · ${group.schedule}` : ""}` : ""}` : "Şu an devam eden bir hafta yok."}
       >
         <Link href={`/oyuncular/${me}`} className="btn-ghost">Profilim →</Link>
       </PanelTitle>
+      {round?.weekStart && matches.length > 0 && (
+        <div className="mb-4">
+          {playUntil(round.weekStart) > new Date() ? (
+            <Notice tone="info">
+              Maçlarınızı rakiplerinizle anlaşarak <b>{playWindowText(round.weekStart)}</b> arasında istediğiniz gün oynayın. Cuma gecesine kadar sonucu girilmeyen maçlar hükmen sayılır ve iki oyuncuya da gelmeme cezası uygulanır.
+            </Notice>
+          ) : (
+            <Notice tone="info">Hafta sona erdi. Oynanmayan maçlar hükmen sayıldı; onay bekleyen ve itirazlı sonuçları lig sorumlusu kesinleştirecek.</Notice>
+          )}
+        </div>
+      )}
       {entry && entry.attendance !== "YES" && <div className="mb-4"><Notice tone="error">Bu hafta {entry.attendance === "AUTO_NO" ? "katılım bildirmediğiniz için hükmen sayıldınız" : "katılmayacağınızı bildirdiniz"}; maçınız yok.</Notice></div>}
       {entry?.movedFrom && <div className="mb-4"><Notice tone="info">Grubu tamamlamak için {entry.movedFrom} grubundan {entry.group.code} grubuna alındınız.</Notice></div>}
       {!round || !matches.length ? (
@@ -106,8 +121,8 @@ export default async function MyMatches() {
                   </div>
                   <MatchStatusChip status={m.status} />
                 </div>
-                {m.status === "PENDING" && (
-                  <Link href={`/skor/${m.id}`} className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-table-900 px-4 py-3 text-sm font-semibold text-white hover:bg-table-800">
+                {weekOpen && m.status === "PENDING" && (
+                  <Link href={`/skor/${m.id}`} className="mt-3 flex items-center justify-between gap-3 rounded-lg bg-table-900 px-4 py-3 text-sm font-semibold text-white hover:bg-table-800">
                     <span className="flex items-center gap-2">
                       <span className={`h-2 w-2 rounded-full ${m.liveStartedAt ? "animate-pulse bg-rubber-500" : "bg-ball-400"}`} />
                       {m.liveStartedAt ? "Canlı skor sürüyor, skorborda dön" : "Masada canlı skor tut"}
@@ -115,7 +130,7 @@ export default async function MyMatches() {
                     <span aria-hidden>→</span>
                   </Link>
                 )}
-                {(m.status === "PENDING" || (m.status === "SUBMITTED" && submittedByMe)) && (
+                {weekOpen && (m.status === "PENDING" || (m.status === "SUBMITTED" && submittedByMe)) && (
                   <ActionForm action={submitResult.bind(null, m.id)} submitLabel={m.status === "PENDING" ? "Sonucu gönder" : "Sonucu güncelle"} className="mt-3 flex flex-wrap items-center gap-3 border-t border-line pt-3">
                     <ScoreSelect defaultValue={submittedByMe ? myView ?? "" : ""} />
                   </ActionForm>

@@ -19,7 +19,7 @@ Havelsan içi masa tenisi rating sistemi: oyuncu sıralaması, haftalık gruplar
 5. *Deployments* sekmesinden son kurulumu **Redeploy** edin. Tablolar derleme sırasında otomatik oluşturulur.
 6. Sitede `/kurulum` adresini açıp **süper admin** hesabınızı oluşturun (sadece hiç kullanıcı yokken açılır).
 7. *Panel › Oyuncular* sayfasında Excel’deki “Ad Soyad / Puan” sütunlarını kopyalayıp **Excel’den toplu aktar** kutusuna yapıştırın.
-8. *Panel › Grup düzeni*’nde “Excel’deki grup düzenini yükle” ile grupların günlerini/saatlerini yükleyin ve gerekirse düzenleyin.
+8. *Panel › Grup düzeni*’nde “Varsayılan grup düzenini yükle” ile 3’er kişilik A-D gruplarını yükleyin ve gerekirse düzenleyin. Gruplara gün/saat atanmaz; oyuncu sayısı düzeni aşarsa her hafta yeni gruplar (E, F…) kendiliğinden açılır.
 9. *Panel › Kullanıcılar*’dan lig sorumlusu hesabını, *Panel › Oyuncular*’dan oyuncu hesaplarını açın.
 
 ## Kullanım
@@ -28,13 +28,14 @@ Havelsan içi masa tenisi rating sistemi: oyuncu sıralaması, haftalık gruplar
 
 **Yeni oyuncu başvurusu:** Sitedeki *Başvuru Yap* formuyla aday ad, e-posta, telefon, şifre ve isteğe bağlı fotoğraf/tanıtım bırakır (puan sorulmaz). Lig sorumlusu veya süper admin *Panel › Başvurular*’da başlangıç puanını yazıp onaylar ya da reddeder. Onaylanınca oyuncu ve giriş hesabı oluşur, Telegram kanalına fotoğraflı “Aramıza yeni bir oyuncu katıldı” mesajı gider.
 
-1. **Grup düzeni** (*Panel › Grup düzeni*): her grubun oyun günü, saati, masası ve kişi sayısı. Sıra numarası küçük grup en yüksek puanlılardan oluşur.
+1. **Grup düzeni** (*Panel › Grup düzeni*): her grubun kişi sayısı ve (isteğe bağlı) yeri; sabit oyun günü yoktur. Sıra numarası küçük grup en yüksek puanlılardan oluşur.
 2. **Yeni hafta** (*Panel › Haftalar*): hafta başı ve son katılım zamanı seçilir; aktif oyuncular puan sırasına göre gruplara yerleşir. Gerekirse oyuncu taşınır.
 3. **Grupları yayınla, katılımı aç:** oyuncular *Maçlarım*’dan “Katılacağım / Katılamayacağım” bildirir. Lig sorumlusu da her oyuncunun katılımını girebilir.
 4. **Otomatik fikstür:** son katılım zamanı geçince (siteye ilk girişte ya da günlük cron’da) bildirim yapmayanlar hükmen sayılır, eksik gruplar alt gruptaki katılan en yüksek puanlı oyuncularla tamamlanır ve herkesle herkes maçları oluşur. “Fikstürü şimdi oluştur” ile beklemeden de oluşturulabilir.
-5. **Sonuç girişi:** oyuncu skoru girer, rakibi onaylar ya da itiraz eder. Lig sorumlusu her sonucu girebilir/düzeltebilir; hükmen (iki oyuncu da gelmedi) sadece lig sorumlusu tarafından girilir.
-6. **Telegram:** bir grubun tüm maçları kesinleşince maç sonuçları, grup sıralaması ve haftanın yıldızı kanala gönderilir.
-7. **Haftayı kapat:** puanlar hesaplanır ve oyunculara işlenir. Süper admin son kapanan haftayı geri alabilir.
+5. **Oyun haftası:** maçlar Pazartesi-Cuma arasında oyuncuların anlaştığı herhangi bir gün oynanır. Cuma gecesi (23:59) sonucu hiç girilmemiş maçlar otomatik hükmen (iki oyuncu da gelmedi) sayılır; onay bekleyen ve itirazlı sonuçları lig sorumlusu kesinleştirir.
+6. **Sonuç girişi:** oyuncu skoru girer, rakibi onaylar ya da itiraz eder. Lig sorumlusu her sonucu girebilir/düzeltebilir; hükmen (iki oyuncu da gelmedi) sadece lig sorumlusu tarafından girilir.
+7. **Telegram:** bir grubun tüm maçları kesinleşince maç sonuçları, grup sıralaması ve haftanın yıldızı kanala gönderilir.
+8. **Haftayı kapat:** puanlar hesaplanır ve oyunculara işlenir. Süper admin son kapanan haftayı geri alabilir.
 
 **Deneme verisi:** *Panel › Ayarlar*’dan tek tuşla 24 deneme oyuncusu, hesapları (şifre `Deneme123!`), kapanmış bir hafta ve devam eden bir hafta oluşturulur; “Deneme verisini sil” ile tamamen kaldırılır. Deneme haftaları Telegram’a gönderilmez.
 

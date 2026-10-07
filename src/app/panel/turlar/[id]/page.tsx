@@ -6,7 +6,7 @@ import { groupComplete, groupInclude, groupResults, type GroupWithData } from "@
 import { getRules } from "@/lib/rules";
 import type { Rules } from "@/lib/rating";
 import { attendanceLabel, formatDateTime, signed } from "@/lib/labels";
-import { toLocalInput } from "@/lib/schedule";
+import { playWindowText, toLocalInput } from "@/lib/schedule";
 import { telegramConfigured } from "@/lib/telegram";
 import { PanelTitle } from "@/components/panel-title";
 import { ActionForm, Field } from "@/components/forms/action-form";
@@ -53,6 +53,7 @@ export default async function RoundPage({ params }: PageProps<"/panel/turlar/[id
             <RoundStatusChip status={round.status} />
             {round.isDemo && <span className="chip bg-amber-50 text-amber-700">Deneme</span>}
             {round.deadline && <span className="text-sm">Son katılım: {formatDateTime(round.deadline)}</span>}
+            {round.weekStart && <span className="text-sm">· Maçlar: {playWindowText(round.weekStart)}</span>}
           </span>
         }
       >
@@ -163,7 +164,7 @@ async function EditView({ round, groups, superAdmin }: { round: { id: string; na
                 <span />
               </ActionForm>
             </div>
-            <p className="mb-3 text-xs text-ink-soft">{g.playAt ? `${formatDateTime(g.playAt)} · ` : ""}{g.schedule ?? "Gün/saat yok"}</p>
+            <p className="mb-3 text-xs text-ink-soft">{g.schedule ?? "Pazartesi-Cuma, serbest gün"}</p>
             <ul className="divide-y divide-line text-sm">
               {[...g.entries].sort((a, b) => b.player.rating - a.player.rating).map((e) => (
                 <li key={e.id} className="flex flex-wrap items-center gap-2 py-1.5">

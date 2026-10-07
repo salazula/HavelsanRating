@@ -174,7 +174,7 @@ export function Scoreboard({ matchId, groupCode, a, b, initial, actions }: Props
           <p className="max-w-sm text-table-100">İlk servisi kim atıyor? Sonra her sayıda kazananın tarafına dokunun. Maç 3 set alan tarafından kazanılınca sonuç kendiliğinden gönderilir.</p>
           <div className="grid w-full max-w-md gap-3 sm:grid-cols-2">
             {(["A", "B"] as const).map((s) => (
-              <button key={s} onClick={() => start(s)} className="flex items-center justify-center gap-3 rounded-3xl bg-white/10 px-5 py-6 text-lg font-bold ring-1 ring-white/20 hover:bg-white/15">
+              <button key={s} onClick={() => start(s)} className="flex items-center justify-center gap-3 rounded-xl bg-white/10 px-5 py-6 text-lg font-bold ring-1 ring-white/20 hover:bg-white/15">
                 <Ball /> {name(s)}
               </button>
             ))}
@@ -217,7 +217,7 @@ export function Scoreboard({ matchId, groupCode, a, b, initial, actions }: Props
                 {live.finished ? sets : pts}
               </span>
               {!live.finished && <span className="text-xs text-table-200 [@media(max-height:620px)]:hidden">Sayı için dokunun</span>}
-              {won && <span className="mt-1 chip bg-ball-400 text-table-900">Kazandı</span>}
+              {won && <span className="mt-1 chip bg-ball-500 text-white">Kazandı</span>}
             </button>
           );
         })}

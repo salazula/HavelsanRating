@@ -6,7 +6,7 @@ import type { Attendance } from "@prisma/client";
 import { db } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
 import { groupCode } from "@/lib/rating";
-import { dateFromYmd, fromLocalInput, weekName } from "@/lib/schedule";
+import { DEFAULT_GROUP_SIZE, dateFromYmd, fromLocalInput, weekName } from "@/lib/schedule";
 import { applyClose, distribute, generateFixture } from "@/lib/weekly";
 import { postGroupIfComplete } from "@/lib/telegram";
 import type { ActionState } from "@/lib/action-state";
@@ -144,7 +144,7 @@ export async function addGroup(roundId: string, _p: ActionState): Promise<Action
     const count = await db.group.count({ where: { roundId } });
     let i = count;
     while (await db.group.findFirst({ where: { roundId, code: groupCode(i) } })) i++;
-    await db.group.create({ data: { roundId, code: groupCode(i), order: i } });
+    await db.group.create({ data: { roundId, code: groupCode(i), order: i, size: DEFAULT_GROUP_SIZE } });
     refresh();
     return { ok: `${groupCode(i)} grubu eklendi.` };
   } catch (e) {

@@ -47,7 +47,7 @@ export default async function PlayerPage({ params }: PageProps<"/oyuncular/[id]"
             ["Maç / Galibiyet", `${player.matches} / ${player.wins}`],
             ["Set averajı", player.setAverage],
           ].map(([k, v]) => (
-            <div key={k} className="rounded-2xl bg-white/8 px-4 py-3 ring-1 ring-white/10">
+            <div key={k} className="rounded-lg bg-white/8 px-4 py-3 ring-1 ring-white/10">
               <dt className="text-xs font-semibold text-table-200">{k}</dt>
               <dd className="font-display text-2xl font-bold">{v}</dd>
             </div>
